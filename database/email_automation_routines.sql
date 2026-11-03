@@ -758,6 +758,106 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_recover_stale_email_logs` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_recover_stale_email_logs`(
+    IN p_job_id BIGINT UNSIGNED
+)
+BEGIN
+    DECLARE v_permanently_failed INT DEFAULT 0;
+    DECLARE v_recovered INT DEFAULT 0;
+    DECLARE v_locked_job_id BIGINT UNSIGNED DEFAULT NULL;
+
+    DECLARE CONTINUE HANDLER FOR NOT FOUND
+        SET v_locked_job_id = NULL;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    START TRANSACTION;
+
+    /*
+      Lock the job row without producing
+      an intermediate result set.
+    */
+    SELECT id
+    INTO v_locked_job_id
+    FROM email_jobs
+    WHERE id = p_job_id
+      AND status = 'PROCESSING'
+    FOR UPDATE;
+
+    IF v_locked_job_id IS NOT NULL THEN
+
+        /*
+          Permanently fail stale logs at maximum attempts.
+        */
+        UPDATE email_logs
+        SET
+            status = 'FAILED',
+            is_retryable = FALSE,
+            next_retry_at = NULL,
+            claimed_at = NULL,
+            error_message =
+                'Processing expired after maximum attempts.',
+            updated_at = NOW()
+        WHERE job_id = p_job_id
+          AND status = 'PROCESSING'
+          AND attempt_count >= 5
+          AND COALESCE(claimed_at, last_attempt_at)
+                < DATE_SUB(NOW(), INTERVAL 5 MINUTE);
+
+        SET v_permanently_failed = ROW_COUNT();
+
+        /*
+          Recover stale logs with attempts remaining.
+        */
+        UPDATE email_logs
+        SET
+            status = 'PENDING',
+            is_retryable = TRUE,
+            next_retry_at = NULL,
+            claimed_at = NULL,
+            error_message =
+                'Recovered after processing timeout.',
+            updated_at = NOW()
+        WHERE job_id = p_job_id
+          AND status = 'PROCESSING'
+          AND attempt_count < 5
+          AND COALESCE(claimed_at, last_attempt_at)
+                < DATE_SUB(NOW(), INTERVAL 5 MINUTE);
+
+        SET v_recovered = ROW_COUNT();
+
+    END IF;
+
+    COMMIT;
+
+    /*
+      Return only the final result set.
+    */
+    SELECT
+        p_job_id AS job_id,
+        v_recovered AS recovered_logs,
+        v_permanently_failed AS permanently_failed_logs;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_retry_failed_emails` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -898,4 +998,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-11-01  2:15:07
+-- Dump completed on 2026-11-03 17:33:33

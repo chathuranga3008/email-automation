@@ -46,7 +46,7 @@ CREATE TABLE `email_logs` (
   KEY `idx_logs_recipient` (`recipient_id`),
   CONSTRAINT `fk_logs_job` FOREIGN KEY (`job_id`) REFERENCES `email_jobs` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_logs_recipient` FOREIGN KEY (`recipient_id`) REFERENCES `recipients` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,7 +55,7 @@ CREATE TABLE `email_logs` (
 
 LOCK TABLES `email_logs` WRITE;
 /*!40000 ALTER TABLE `email_logs` DISABLE KEYS */;
-INSERT INTO `email_logs` VALUES (5,3,1,'Amal Perera','amal@example.com','SENT',1,0,NULL,'2026-10-31 21:57:07',NULL,'2026-10-31 22:06:11',NULL,'2026-10-31 21:57:02','2026-10-31 22:06:11'),(6,3,2,'Kamal Silva','kamal@example.com','FAILED',1,1,'2026-10-31 22:11:45','2026-10-31 21:57:07',NULL,NULL,'Test failure - SMTP connection unavailable','2026-10-31 21:57:02','2026-10-31 22:06:45');
+INSERT INTO `email_logs` VALUES (5,3,1,'Amal Perera','amal@example.com','SENT',1,0,NULL,'2026-10-31 21:57:07',NULL,'2026-10-31 22:06:11',NULL,'2026-10-31 21:57:02','2026-10-31 22:06:11'),(6,3,2,'Kamal Silva','kamal@example.com','SENT',2,0,NULL,'2026-11-03 13:03:01',NULL,'2026-11-03 13:06:09',NULL,'2026-10-31 21:57:02','2026-11-03 13:06:09'),(10,5,1,'Amal Perera','lszddn017n@olipii.com','SENT',1,0,NULL,'2026-11-03 15:30:41',NULL,'2026-11-03 15:30:46',NULL,'2026-11-03 15:19:10','2026-11-03 15:30:46'),(11,5,2,'Kamal Silva','olqyxp32j0@gmeenramy.com','SENT',1,0,NULL,'2026-11-03 15:30:46',NULL,'2026-11-03 15:30:50',NULL,'2026-11-03 15:19:10','2026-11-03 15:30:50'),(13,6,3,'Nimali Fernando','not-a-valid-email','FAILED',5,0,NULL,'2026-11-03 16:00:34',NULL,NULL,'Failed messages: jakarta.mail.SendFailedException: Invalid Addresses;\n  nested exception is:\n	org.eclipse.angus.mail.smtp.SMTPAddressFailedException: 553-5.1.3 The recipient address <not-a-valid-email> is not a valid RFC 5321\n553-5.1.3 address. For more information, go to\n553-5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321\n553 5.1.3 specifications. 5a478bee46e88-36a42a77c0dsm55957479eec.26 - gsmtp\n','2026-11-03 15:44:56','2026-11-03 16:00:38'),(14,7,1,'Amal Perera','lszddn017n@olipii.com','SENT',1,0,NULL,'2026-11-03 16:14:58',NULL,'2026-11-03 16:15:03',NULL,'2026-11-03 16:10:35','2026-11-03 16:42:49'),(15,8,1,'Amal Perera','lszddn017n@olipii.com','SENT',2,0,NULL,'2026-11-03 17:17:18',NULL,'2026-11-03 17:17:23',NULL,'2026-11-03 17:02:30','2026-11-03 17:17:23');
 /*!40000 ALTER TABLE `email_logs` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -68,4 +68,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-11-01  2:15:07
+-- Dump completed on 2026-11-03 17:33:33
