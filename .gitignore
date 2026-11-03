@@ -1,41 +1,108 @@
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# ==================================================
+# Email Automation System - root .gitignore
+# Covers Angular frontend and Spring Boot backend
+# ==================================================
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# ------------------------------
+# Angular / Node.js (frontend)
+# ------------------------------
+frontend/dist/
+frontend/tmp/
+frontend/out-tsc/
+frontend/bazel-out/
+frontend/node_modules/
+frontend/npm-debug.log
+frontend/yarn-error.log
+frontend/.angular/cache/
+frontend/.sass-cache/
+frontend/coverage/
+frontend/.history/
+frontend/__screenshots__/
+frontend/typings/
 
-### IntelliJ IDEA ###
-.idea
+# ------------------------------
+# Java / Maven (backend)
+# ------------------------------
+backend/target/
+backend/build/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/HELP.md
+
+# Keep generated output out of source trees if any tools create it there
+!backend/src/main/**/target/
+!backend/src/test/**/target/
+!backend/src/main/**/build/
+!backend/src/test/**/build/
+
+# ------------------------------
+# Environment files / secrets
+# ------------------------------
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+
+# ------------------------------
+# IDEs and editors
+# ------------------------------
+.idea/
+**/.idea/
 *.iws
 *.iml
 *.ipr
+.project
+.classpath
+.factorypath
+.settings/
+**/.settings/
+.springBeans
+.sts4-cache
+.apt_generated
+.c9/
+*.launch
+*.sublime-workspace
+.nb-gradle/
+nbproject/private/
+nbbuild/
+nbdist/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
+# ------------------------------
+# Visual Studio Code
+# Ignore workspace-specific files, but allow shared project settings
+# ------------------------------
+.vscode/*
+**/.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+!**/.vscode/settings.json
+!**/.vscode/tasks.json
+!**/.vscode/launch.json
+!**/.vscode/extensions.json
+!**/.vscode/mcp.json
+
+# ------------------------------
+# Miscellaneous build / test output
+# ------------------------------
 /dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+/tmp/
+/out-tsc/
+/bazel-out/
+/coverage/
+/typings/
+/connect.lock
+/libpeerconnection.log
+testem.log
+__screenshots__/
 
-### VS Code ###
-.vscode/
+# ------------------------------
+# Operating system files
+# ------------------------------
+.DS_Store
+Thumbs.db
 
-# Environment variables and secrets
-.env
-.env.*
-!.env.example
 .fake
-
-# Logs
-*.log
