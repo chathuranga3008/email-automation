@@ -1,4 +1,3 @@
-
 package com.company.email.controller;
 
 import com.company.email.dto.EmailTemplateDTO;

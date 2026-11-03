@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record SendEmailRequestDTO(
-
         @NotNull(message = "Record ID is required")
         Long recordId,
 
@@ -13,6 +12,5 @@ public record SendEmailRequestDTO(
 
         @NotBlank(message = "Idempotency key is required")
         String idempotencyKey
-
 ) {
 }

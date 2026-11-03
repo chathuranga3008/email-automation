@@ -123,4 +123,20 @@ public class EmailWorkerService {
         EmailRecipientLogDTO result = getClaimedEmailLog(logId);
         System.out.println("Claimed email log: " + result);
     }
+
+    public void recoverStaleEmailLogs(Long jobId) {
+
+        String sql = "CALL sp_recover_stale_email_logs(?)";
+
+        Map<String, Object> result =
+                jdbcTemplate.queryForMap(sql, jobId);
+
+        System.out.println(
+                "Stale log recovery for job " + jobId
+                        + ": recovered="
+                        + result.get("recovered_logs")
+                        + ", permanently failed="
+                        + result.get("permanently_failed_logs")
+        );
+    }
 }
