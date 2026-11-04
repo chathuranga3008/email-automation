@@ -310,6 +310,79 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_create_email_template` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_create_email_template`(
+    IN p_template_code VARCHAR(100),
+    IN p_template_name VARCHAR(200),
+    IN p_subject_template VARCHAR(500),
+    IN p_body_html LONGTEXT,
+    IN p_body_text LONGTEXT
+)
+BEGIN
+    -- Validate required fields
+    IF p_template_code IS NULL OR TRIM(p_template_code) = '' THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Template code is required';
+    END IF;
+
+    IF p_template_name IS NULL OR TRIM(p_template_name) = '' THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Template name is required';
+    END IF;
+
+    IF p_subject_template IS NULL OR TRIM(p_subject_template) = '' THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Subject template is required';
+    END IF;
+
+    IF p_body_html IS NULL OR TRIM(p_body_html) = '' THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'HTML body is required';
+    END IF;
+
+    -- Check duplicate template code
+    IF EXISTS (
+        SELECT 1
+        FROM email_templates
+        WHERE template_code = TRIM(p_template_code)
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Template code already exists';
+    END IF;
+
+    -- Insert new template
+    INSERT INTO email_templates (
+        template_code,
+        template_name,
+        subject_template,
+        body_html,
+        body_text,
+        is_active
+    )
+    VALUES (
+        TRIM(p_template_code),
+        TRIM(p_template_name),
+        TRIM(p_subject_template),
+        p_body_html,
+        p_body_text,
+        1
+    );
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_finalize_email_job` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -554,6 +627,38 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_get_dashboard_summary` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_dashboard_summary`()
+BEGIN
+    SELECT
+        COUNT(*) AS total_jobs,
+
+        COALESCE(SUM(status = 'PENDING'), 0) AS pending_jobs,
+        COALESCE(SUM(status = 'PROCESSING'), 0) AS processing_jobs,
+        COALESCE(SUM(status = 'COMPLETED'), 0) AS completed_jobs,
+        COALESCE(SUM(status = 'PARTIAL'), 0) AS partial_jobs,
+        COALESCE(SUM(status = 'FAILED'), 0) AS failed_jobs,
+
+        COALESCE(SUM(total_recipients), 0) AS total_recipients,
+        COALESCE(SUM(sent_count), 0) AS sent_recipients,
+        COALESCE(SUM(failed_count), 0) AS failed_recipients
+
+    FROM email_jobs;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_get_email_job` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -643,9 +748,11 @@ BEGIN
         template_name,
         subject_template,
         body_html,
-        body_text
+        body_text,
+        is_active,
+        created_at,
+        updated_at
     FROM email_templates
-    WHERE is_active = TRUE
     ORDER BY template_name;
 END ;;
 DELIMITER ;
@@ -694,6 +801,43 @@ BEGIN
           )
       )
     ORDER BY id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_get_recent_email_jobs` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_recent_email_jobs`(
+    IN p_limit INT
+)
+BEGIN
+    SELECT
+        id,
+        record_reference_snapshot,
+        record_title_snapshot,
+        template_name_snapshot,
+        subject_snapshot,
+        status,
+        total_recipients,
+        sent_count,
+        failed_count,
+        created_at,
+        started_at,
+        completed_at
+
+    FROM email_jobs
+    ORDER BY created_at DESC, id DESC
+    LIMIT p_limit;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -930,6 +1074,48 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_set_email_template_status` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_set_email_template_status`(
+    IN p_template_id BIGINT UNSIGNED,
+    IN p_is_active TINYINT
+)
+BEGIN
+    DECLARE v_template_exists INT DEFAULT 0;
+
+    IF p_template_id IS NULL OR p_is_active IS NULL
+       OR p_is_active NOT IN (0, 1) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Valid template ID and status are required (0 or 1)';
+    END IF;
+
+    SELECT COUNT(*)
+    INTO v_template_exists
+    FROM email_templates
+    WHERE id = p_template_id;
+
+    IF v_template_exists = 0 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Email template not found';
+    END IF;
+
+    UPDATE email_templates
+    SET is_active = p_is_active
+    WHERE id = p_template_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_update_email_log` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -988,6 +1174,57 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_update_email_template` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_update_email_template`(
+    IN p_template_id BIGINT UNSIGNED,
+    IN p_template_name VARCHAR(200),
+    IN p_subject_template VARCHAR(500),
+    IN p_body_html LONGTEXT,
+    IN p_body_text LONGTEXT
+)
+BEGIN
+    DECLARE v_template_exists INT DEFAULT 0;
+
+    IF p_template_id IS NULL
+       OR p_template_name IS NULL OR TRIM(p_template_name) = ''
+       OR p_subject_template IS NULL OR TRIM(p_subject_template) = ''
+       OR p_body_html IS NULL OR TRIM(p_body_html) = '' THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Template ID, name, subject and HTML body are required';
+    END IF;
+
+    SELECT COUNT(*)
+    INTO v_template_exists
+    FROM email_templates
+    WHERE id = p_template_id;
+
+    IF v_template_exists = 0 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Email template not found';
+    END IF;
+
+    UPDATE email_templates
+    SET
+        template_name = p_template_name,
+        subject_template = p_subject_template,
+        body_html = p_body_html,
+        body_text = p_body_text
+    WHERE id = p_template_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -998,4 +1235,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-11-03 17:33:33
+-- Dump completed on 2026-11-05  0:32:06

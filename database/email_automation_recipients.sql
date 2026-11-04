@@ -43,7 +43,7 @@ CREATE TABLE `recipients` (
 
 LOCK TABLES `recipients` WRITE;
 /*!40000 ALTER TABLE `recipients` DISABLE KEYS */;
-INSERT INTO `recipients` VALUES (1,'Amal Perera','amal@example.com',1,'2026-10-31 16:37:45','2026-10-31 16:37:45'),(2,'Kamal Silva','kamal@example.com',1,'2026-10-31 16:37:45','2026-10-31 16:37:45'),(3,'Nimali Fernando','nimali@example.com',1,'2026-10-31 16:37:45','2026-10-31 16:37:45'),(4,'Saman Jayasinghe','saman@example.com',1,'2026-10-31 16:37:45','2026-10-31 16:37:45');
+INSERT INTO `recipients` VALUES (1,'Amal Perera','lszddn017n@olipii.com',1,'2026-10-31 16:37:45','2026-11-03 15:17:50'),(2,'Kamal Silva','olqyxp32j0@gmeenramy.com',1,'2026-10-31 16:37:45','2026-11-03 15:26:48'),(3,'Nimali Fernando','nimali@example.com',1,'2026-10-31 16:37:45','2026-11-03 15:45:29'),(4,'Saman Jayasinghe','saman@example.com',1,'2026-10-31 16:37:45','2026-10-31 16:37:45');
 /*!40000 ALTER TABLE `recipients` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-11-03 17:33:32
+-- Dump completed on 2026-11-05  0:32:06
