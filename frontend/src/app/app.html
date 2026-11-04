@@ -1,8 +1,6 @@
 <div class="app-layout">
-
   <!-- Left Sidebar -->
   <aside class="sidebar">
-
     <div class="brand">
       <div class="brand-logo">EA</div>
       <div class="brand-name">
@@ -15,7 +13,6 @@
       <span class="section-label">MAIN MENU</span>
 
       <nav class="navigation">
-
         <a
           routerLink="/dashboard"
           routerLinkActive="active"
@@ -26,42 +23,25 @@
           <span>Dashboard</span>
         </a>
 
-        <a
-          routerLink="/send-emails"
-          routerLinkActive="active"
-          class="nav-item"
-        >
+        <a routerLink="/send-emails" routerLinkActive="active" class="nav-item">
           <span class="nav-icon">✉</span>
           <span>Send Emails</span>
         </a>
 
-        <a
-          routerLink="/email-templates"
-          routerLinkActive="active"
-          class="nav-item"
-        >
+        <a routerLink="/email-templates" routerLinkActive="active" class="nav-item">
           <span class="nav-icon">▤</span>
           <span>Email Templates</span>
         </a>
 
-        <a
-          routerLink="/email-history"
-          routerLinkActive="active"
-          class="nav-item"
-        >
+        <a routerLink="/email-history" routerLinkActive="active" class="nav-item">
           <span class="nav-icon">◷</span>
           <span>Email History</span>
         </a>
 
-        <a
-          routerLink="/recipients"
-          routerLinkActive="active"
-          class="nav-item"
-        >
+        <a routerLink="/recipients" routerLinkActive="active" class="nav-item">
           <span class="nav-icon">♙</span>
           <span>Recipients</span>
         </a>
-
       </nav>
     </div>
 
@@ -69,12 +49,10 @@
       <span>EMAIL AUTOMATION SYSTEM</span>
       <span>Version 1.0</span>
     </div>
-
   </aside>
 
   <!-- Main Content -->
   <main class="main-area">
-
     <header class="top-header">
       <div>
         <h1>Email Automation System</h1>
@@ -93,7 +71,5 @@
     <section class="page-content">
       <router-outlet />
     </section>
-
   </main>
-
 </div>

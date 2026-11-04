@@ -81,7 +81,9 @@
   color: #c3ccda;
   text-decoration: none;
   font-size: 13px;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
 .nav-item:hover {
