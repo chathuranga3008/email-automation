@@ -1,0 +1,152 @@
+.details-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.details-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #e7eaf0;
+  border-radius: 10px;
+  padding: 24px;
+}
+
+.details-heading h2 {
+  margin: 0 0 8px;
+  color: #17243a;
+  font-size: 21px;
+}
+
+.details-heading p {
+  margin: 0;
+  color: #8290a3;
+  font-size: 13px;
+}
+
+.back-button {
+  padding: 10px 15px;
+  background: #253b60;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.details-card {
+  background: #ffffff;
+  border: 1px solid #e7eaf0;
+  border-radius: 10px;
+  padding: 24px;
+}
+
+.template-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 24px;
+}
+
+.template-header h3 {
+  margin: 7px 0 0;
+  color: #17243a;
+  font-size: 18px;
+}
+
+.field-label,
+.field-group label {
+  color: #8290a3;
+  font-size: 12px;
+}
+
+.template-code {
+  background: #edf2fa;
+  color: #253b60;
+  padding: 7px 11px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.field-group {
+  border-top: 1px solid #edf0f4;
+  padding-top: 16px;
+  margin-top: 16px;
+}
+
+.field-group p {
+  color: #34445c;
+  font-size: 14px;
+  margin: 8px 0 0;
+  word-break: break-word;
+}
+
+.details-card > h3 {
+  margin: 0 0 18px;
+  color: #17243a;
+  font-size: 16px;
+}
+
+.code-content {
+  background: #f6f8fb;
+  border: 1px solid #e7eaf0;
+  border-radius: 7px;
+  padding: 18px;
+  color: #34445c;
+  font-family: Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  overflow-x: auto;
+  margin: 0;
+}
+
+.placeholder-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.placeholder-list code {
+  background: #edf2fa;
+  color: #253b60;
+  padding: 9px 12px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.loading-message,
+.error-message {
+  padding: 24px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e7eaf0;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.loading-message {
+  color: #8290a3;
+}
+
+.error-message {
+  color: #c0392b;
+  background: #fff5f4;
+}
+
+@media (max-width: 650px) {
+  .details-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .template-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,48 @@
+<div class="templates-page">
+  <div class="page-heading">
+    <div>
+      <h2>Email Templates</h2>
+      <p>View and manage your email templates.</p>
+    </div>
+
+    <button class="refresh-button" (click)="loadTemplates()" [disabled]="loading">↻ Refresh</button>
+  </div>
+
+  <div class="loading-message" *ngIf="loading">Loading email templates...</div>
+
+  <div class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <div class="templates-grid" *ngIf="!loading && !errorMessage">
+    <div
+      class="template-card"
+      *ngFor="let template of templates"
+      [routerLink]="['/email-templates', template.id]"
+      role="link"
+      tabindex="0"
+    >
+      <div class="template-card-header">
+        <div class="template-icon">✉</div>
+
+        <span class="template-code">
+          {{ template.templateCode }}
+        </span>
+      </div>
+
+      <h3>{{ template.templateName }}</h3>
+
+      <div class="template-subject">
+        <span>Subject</span>
+        <p>{{ template.subjectTemplate }}</p>
+      </div>
+
+      <div class="template-footer">
+        <span>Template ID: #{{ template.id }}</span>
+        <span class="active-label">Available</span>
+      </div>
+    </div>
+
+    <div class="empty-message" *ngIf="templates.length === 0">No email templates found.</div>
+  </div>
+</div>

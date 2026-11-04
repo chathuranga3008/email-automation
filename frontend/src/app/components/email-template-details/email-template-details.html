@@ -1,0 +1,61 @@
+<div class="details-page">
+  <div class="details-heading">
+    <div>
+      <h2>Template Details</h2>
+      <p>View the email template configuration and content.</p>
+    </div>
+
+    <button class="back-button" (click)="goBack()">← Back to Templates</button>
+  </div>
+
+  <div class="loading-message" *ngIf="loading">Loading template details...</div>
+
+  <div class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <ng-container *ngIf="template as item">
+    <section class="details-card">
+      <div class="template-header">
+        <div>
+          <span class="field-label">Template Name</span>
+          <h3>{{ item.templateName }}</h3>
+        </div>
+
+        <span class="template-code">{{ item.templateCode }}</span>
+      </div>
+
+      <div class="field-group">
+        <label>Template ID</label>
+        <p>#{{ item.id }}</p>
+      </div>
+
+      <div class="field-group">
+        <label>Subject Template</label>
+        <p>{{ item.subjectTemplate }}</p>
+      </div>
+    </section>
+
+    <section class="details-card">
+      <h3>Email HTML Body</h3>
+
+      <pre class="code-content">{{ item.bodyHtml || 'No HTML content available.' }}</pre>
+    </section>
+
+    <section class="details-card">
+      <h3>Email Plain Text Body</h3>
+
+      <pre class="code-content">{{ item.bodyText || 'No plain-text content available.' }}</pre>
+    </section>
+
+    <section class="details-card">
+      <h3>Supported Placeholders</h3>
+
+      <div class="placeholder-list">
+        <code>{{ '{{recipientName}}' }}</code>
+        <code>{{ '{{recordTitle}}' }}</code>
+        <code>{{ '{{recordReference}}' }}</code>
+      </div>
+    </section>
+  </ng-container>
+</div>

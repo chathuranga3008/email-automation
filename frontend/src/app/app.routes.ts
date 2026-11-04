@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { SectionPage } from './section-page';
 import { Dashboard } from './components/dashboard/dashboard';
+import { EmailTemplates } from './components/email-templates/email-templates';
+import { EmailTemplateDetails } from './components/email-template-details/email-template-details';
 
 export const routes: Routes = [
   {
@@ -26,10 +28,18 @@ export const routes: Routes = [
   },
   {
     path: 'email-templates',
-    component: SectionPage,
+    component: EmailTemplates,
     data: {
       title: 'Email Templates',
       description: 'Manage your email templates.',
+    },
+  },
+  {
+    path: 'email-templates/:id',
+    component: EmailTemplateDetails,
+    data: {
+      title: 'Template Details',
+      description: 'View email template content and configuration.',
     },
   },
   {
