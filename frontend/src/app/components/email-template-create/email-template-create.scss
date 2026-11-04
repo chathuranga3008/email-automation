@@ -1,0 +1,159 @@
+.create-template-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.page-heading {
+  background: #ffffff;
+  border: 1px solid #e7eaf0;
+  border-radius: 10px;
+  padding: 24px;
+}
+
+.page-heading h2 {
+  margin: 0 0 8px;
+  color: #17243a;
+  font-size: 21px;
+}
+
+.page-heading p {
+  margin: 0;
+  color: #8290a3;
+  font-size: 13px;
+}
+
+.form-card {
+  background: #ffffff;
+  border: 1px solid #e7eaf0;
+  border-radius: 10px;
+  padding: 28px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  color: #34445c;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.form-group label span {
+  color: #c0392b;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 12px;
+  border: 1px solid #dce2ea;
+  border-radius: 6px;
+  color: #253b60;
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+}
+
+.form-group textarea {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #526f9d;
+}
+
+.form-group input:disabled,
+.form-group textarea:disabled {
+  background: #f5f6f8;
+}
+
+.form-group small {
+  color: #8290a3;
+  font-size: 11px;
+}
+
+.placeholder-info {
+  background: #f5f7fa;
+  border: 1px solid #e7eaf0;
+  border-radius: 7px;
+  padding: 16px;
+  margin-bottom: 22px;
+}
+
+.placeholder-info strong {
+  display: block;
+  color: #253b60;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.placeholder-info p {
+  color: #65748a;
+  font-size: 12px;
+  margin: 6px 0;
+}
+
+.error-message {
+  padding: 13px;
+  margin-bottom: 18px;
+  border-radius: 6px;
+  color: #c0392b;
+  background: #fff5f4;
+  font-size: 13px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid #edf0f4;
+  padding-top: 20px;
+}
+
+.cancel-button,
+.save-button {
+  padding: 11px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-button {
+  color: #526176;
+  background: #edf0f4;
+}
+
+.save-button {
+  color: #ffffff;
+  background: #253b60;
+}
+
+.cancel-button:disabled,
+.save-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .form-card {
+    padding: 18px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}

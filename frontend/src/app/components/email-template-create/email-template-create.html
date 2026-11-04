@@ -1,0 +1,115 @@
+<div class="create-template-page">
+  <div class="page-heading">
+    <div>
+      <h2>Create Email Template</h2>
+      <p>Create a new reusable email template.</p>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <form (ngSubmit)="createTemplate()" #templateForm="ngForm">
+      <div class="form-group">
+        <label for="templateCode"> Template Code <span>*</span> </label>
+
+        <input
+          id="templateCode"
+          name="templateCode"
+          type="text"
+          [(ngModel)]="templateCode"
+          placeholder="e.g. WELCOME_EMAIL"
+          maxlength="100"
+          required
+          [disabled]="loading"
+        />
+
+        <small>Must be unique. This code cannot be changed later.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="templateName"> Template Name <span>*</span> </label>
+
+        <input
+          id="templateName"
+          name="templateName"
+          type="text"
+          [(ngModel)]="templateName"
+          placeholder="Enter template name"
+          maxlength="200"
+          required
+          [disabled]="loading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="subjectTemplate"> Subject Template <span>*</span> </label>
+
+        <input
+          id="subjectTemplate"
+          name="subjectTemplate"
+          type="text"
+          [(ngModel)]="subjectTemplate"
+          placeholder="e.g. Update regarding {{ '{{recordReference}}' }}"
+          maxlength="500"
+          required
+          [disabled]="loading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="bodyHtml"> HTML Body <span>*</span> </label>
+
+        <textarea
+          id="bodyHtml"
+          name="bodyHtml"
+          [(ngModel)]="bodyHtml"
+          rows="12"
+          placeholder="Enter HTML email content"
+          required
+          [disabled]="loading"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="bodyText"> Plain Text Body </label>
+
+        <textarea
+          id="bodyText"
+          name="bodyText"
+          [(ngModel)]="bodyText"
+          rows="7"
+          placeholder="Optional plain-text email content"
+          [disabled]="loading"
+        ></textarea>
+      </div>
+
+      <div class="placeholder-info">
+        <strong>Available placeholders</strong>
+
+        <p>{{ '{{recipientName}}' }} — Recipient name</p>
+
+        <p>{{ '{{recordTitle}}' }} — Record title</p>
+
+        <p>{{ '{{recordReference}}' }} — Record reference</p>
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="button"
+          class="cancel-button"
+          routerLink="/email-templates"
+          [disabled]="loading"
+        >
+          Cancel
+        </button>
+
+        <button type="submit" class="save-button" [disabled]="loading">
+          {{ loading ? 'Creating...' : 'Create Template' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

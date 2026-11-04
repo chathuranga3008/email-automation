@@ -5,13 +5,23 @@
       <p>View and manage your email templates.</p>
     </div>
 
-    <button class="refresh-button" (click)="loadTemplates()" [disabled]="loading">↻ Refresh</button>
+    <div class="heading-actions">
+      <button class="create-button" routerLink="/email-templates/create">+ Create Template</button>
+
+      <button class="refresh-button" (click)="loadTemplates()" [disabled]="loading">
+        ↻ Refresh
+      </button>
+    </div>
   </div>
 
   <div class="loading-message" *ngIf="loading">Loading email templates...</div>
 
   <div class="error-message" *ngIf="errorMessage">
     {{ errorMessage }}
+  </div>
+
+  <div class="error-message" *ngIf="statusErrorMessage">
+    {{ statusErrorMessage }}
   </div>
 
   <div class="templates-grid" *ngIf="!loading && !errorMessage">
@@ -34,12 +44,37 @@
 
       <div class="template-subject">
         <span>Subject</span>
+
         <p>{{ template.subjectTemplate }}</p>
       </div>
 
       <div class="template-footer">
         <span>Template ID: #{{ template.id }}</span>
-        <span class="active-label">Available</span>
+
+        <span
+          class="status-label"
+          [class.active-label]="template.isActive"
+          [class.inactive-label]="!template.isActive"
+        >
+          {{ template.isActive ? 'Active' : 'Inactive' }}
+        </span>
+      </div>
+
+      <div class="template-actions">
+        <button
+          type="button"
+          class="status-button"
+          [class.hide-button]="template.isActive"
+          [class.unhide-button]="!template.isActive"
+          [disabled]="updatingTemplateIds.has(template.id)"
+          (click)="setTemplateStatus(template); $event.stopPropagation()"
+        >
+          <ng-container *ngIf="!updatingTemplateIds.has(template.id)">
+            {{ template.isActive ? 'Hide Template' : 'Unhide Template' }}
+          </ng-container>
+
+          <ng-container *ngIf="updatingTemplateIds.has(template.id)"> Updating... </ng-container>
+        </button>
       </div>
     </div>
 

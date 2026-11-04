@@ -1,0 +1,174 @@
+<div class="edit-page">
+
+  <div class="edit-heading">
+
+    <div>
+      <h2>Edit Email Template</h2>
+      <p>Modify the email template content and configuration.</p>
+    </div>
+
+    <button
+      type="button"
+      class="back-button"
+      (click)="cancel()"
+    >
+      ← Cancel
+    </button>
+
+  </div>
+
+  <div class="loading-message" *ngIf="loading">
+    Loading template...
+  </div>
+
+  <div class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <ng-container *ngIf="template && !loading">
+
+    <form
+      #templateForm="ngForm"
+      (ngSubmit)="saveChanges()"
+      class="edit-form"
+    >
+
+      <section class="form-card">
+
+        <h3>Template Information</h3>
+
+        <div class="form-group">
+
+          <label>Template Code</label>
+
+          <input
+            type="text"
+            [value]="template.templateCode"
+            readonly
+          />
+
+          <small>Template code cannot be changed.</small>
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="templateName">Template Name *</label>
+
+          <input
+            id="templateName"
+            type="text"
+            name="templateName"
+            [(ngModel)]="form.templateName"
+            required
+            maxlength="200"
+            placeholder="Enter template name"
+          />
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="subjectTemplate">Email Subject *</label>
+
+          <input
+            id="subjectTemplate"
+            type="text"
+            name="subjectTemplate"
+            [(ngModel)]="form.subjectTemplate"
+            required
+            maxlength="500"
+            placeholder="Enter email subject"
+          />
+
+        </div>
+
+      </section>
+
+      <section class="form-card">
+
+        <h3>HTML Email Body *</h3>
+
+        <div class="form-group">
+
+          <textarea
+            id="bodyHtml"
+            name="bodyHtml"
+            [(ngModel)]="form.bodyHtml"
+            required
+            rows="14"
+            placeholder="Enter HTML email content"
+          ></textarea>
+
+          <small>
+            HTML content used when sending the email.
+          </small>
+
+        </div>
+
+      </section>
+
+      <section class="form-card">
+
+        <h3>Plain Text Email Body</h3>
+
+        <div class="form-group">
+
+          <textarea
+            id="bodyText"
+            name="bodyText"
+            [(ngModel)]="form.bodyText"
+            rows="10"
+            placeholder="Enter plain text email content (optional)"
+          ></textarea>
+
+          <small>
+            Optional plain-text alternative to the HTML email.
+          </small>
+
+        </div>
+
+      </section>
+
+      <section class="form-card">
+
+        <h3>Supported Placeholders</h3>
+
+        <div class="placeholder-list">
+          <code>{{ '{{recipientName}}' }}</code>
+          <code>{{ '{{recordTitle}}' }}</code>
+          <code>{{ '{{recordReference}}' }}</code>
+        </div>
+
+        <p class="placeholder-help">
+          You can use these placeholders in your email subject and body.
+        </p>
+
+      </section>
+
+      <div class="form-actions">
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="cancel()"
+          [disabled]="saving"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="save-button"
+          [disabled]="saving || templateForm.invalid"
+        >
+          {{ saving ? 'Saving...' : 'Save Changes' }}
+        </button>
+
+      </div>
+
+    </form>
+
+  </ng-container>
+
+</div>

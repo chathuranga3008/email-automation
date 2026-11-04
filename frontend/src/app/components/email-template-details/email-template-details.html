@@ -5,7 +5,17 @@
       <p>View the email template configuration and content.</p>
     </div>
 
-    <button class="back-button" (click)="goBack()">← Back to Templates</button>
+    <div class="heading-actions">
+      <button
+        class="edit-button"
+        *ngIf="template"
+        [routerLink]="['/email-templates', template.id, 'edit']"
+      >
+        ✎ Edit Template
+      </button>
+
+      <button class="back-button" (click)="goBack()">← Back to Templates</button>
+    </div>
   </div>
 
   <div class="loading-message" *ngIf="loading">Loading template details...</div>

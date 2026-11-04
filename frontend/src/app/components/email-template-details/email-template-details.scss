@@ -150,3 +150,25 @@
     flex-direction: column;
   }
 }
+
+.heading-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.edit-button {
+  padding: 10px 15px;
+  background: #e8f0fb;
+  color: #253b60;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+@media (max-width: 650px) {
+  .heading-actions {
+    flex-wrap: wrap;
+  }
+}
