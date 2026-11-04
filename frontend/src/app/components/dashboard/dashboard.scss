@@ -1,0 +1,208 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dashboard-heading,
+.table-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-heading h2,
+.table-heading h3 {
+  margin: 0 0 7px;
+  color: #17243a;
+}
+
+.dashboard-heading h2 {
+  font-size: 21px;
+}
+
+.dashboard-heading p,
+.table-heading p {
+  margin: 0;
+  color: #8290a3;
+  font-size: 13px;
+}
+
+.refresh-button {
+  background: #3978e8;
+  border: none;
+  border-radius: 7px;
+  padding: 11px 17px;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.refresh-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.section-title {
+  margin: 0;
+  color: #26354b;
+  font-size: 15px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.recipient-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.summary-card {
+  background: white;
+  border: 1px solid #e7eaf0;
+  border-radius: 10px;
+  padding: 21px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.summary-card span {
+  color: #8290a3;
+  font-size: 12px;
+}
+
+.summary-card strong {
+  color: #17243a;
+  font-size: 27px;
+}
+
+.summary-card .success-value {
+  color: #15966a;
+}
+
+.summary-card .failed-value {
+  color: #dc5353;
+}
+
+.recent-jobs-section {
+  background: white;
+  border: 1px solid #e7eaf0;
+  border-radius: 10px;
+  padding: 22px;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+th {
+  background: #f7f8fb;
+  color: #8290a3;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: left;
+  padding: 13px;
+}
+
+td {
+  border-bottom: 1px solid #edf0f4;
+  padding: 15px 13px;
+  color: #46546a;
+  font-size: 12px;
+}
+
+td strong {
+  display: block;
+  color: #26354b;
+  margin-bottom: 4px;
+}
+
+td small {
+  display: block;
+  color: #8290a3;
+}
+
+.status {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.status.completed {
+  background: #e5f7ef;
+  color: #15966a;
+}
+
+.status.failed {
+  background: #fdeaea;
+  color: #dc5353;
+}
+
+.status.processing {
+  background: #e8efff;
+  color: #3978e8;
+}
+
+.status.pending {
+  background: #fff4dc;
+  color: #bd841b;
+}
+
+.status.partial {
+  background: #f1eaff;
+  color: #8054bd;
+}
+
+.empty-message {
+  text-align: center;
+  padding: 30px;
+  color: #8290a3;
+}
+
+.error-message {
+  padding: 13px;
+  background: #fdeaea;
+  color: #dc5353;
+  border-radius: 7px;
+  font-size: 13px;
+}
+
+.loading-message {
+  color: #8290a3;
+  font-size: 13px;
+}
+
+@media (max-width: 1100px) {
+  .summary-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .summary-grid,
+  .recipient-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-heading {
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .summary-card {
+    padding: 15px;
+  }
+}

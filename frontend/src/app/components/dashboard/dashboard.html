@@ -1,0 +1,127 @@
+<div class="dashboard">
+  <div class="dashboard-heading">
+    <div>
+      <h2>Dashboard Overview</h2>
+      <p>Monitor your email automation activities.</p>
+    </div>
+
+    <button class="refresh-button" (click)="loadDashboard()" [disabled]="loading">↻ Refresh</button>
+  </div>
+
+  <div class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <div class="loading-message" *ngIf="loading">Loading dashboard...</div>
+
+  <ng-container *ngIf="summary">
+    <h3 class="section-title">Email Jobs</h3>
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <span>Total Jobs</span>
+        <strong>{{ summary.totalJobs }}</strong>
+      </div>
+
+      <div class="summary-card">
+        <span>Completed</span>
+        <strong>{{ summary.completedJobs }}</strong>
+      </div>
+
+      <div class="summary-card">
+        <span>Processing</span>
+        <strong>{{ summary.processingJobs }}</strong>
+      </div>
+
+      <div class="summary-card">
+        <span>Pending</span>
+        <strong>{{ summary.pendingJobs }}</strong>
+      </div>
+
+      <div class="summary-card">
+        <span>Failed</span>
+        <strong>{{ summary.failedJobs }}</strong>
+      </div>
+    </div>
+
+    <h3 class="section-title">Recipient Statistics</h3>
+
+    <div class="summary-grid recipient-grid">
+      <div class="summary-card">
+        <span>Total Recipients</span>
+        <strong>{{ summary.totalRecipients }}</strong>
+      </div>
+
+      <div class="summary-card">
+        <span>Successfully Sent</span>
+        <strong class="success-value">
+          {{ summary.sentRecipients }}
+        </strong>
+      </div>
+
+      <div class="summary-card">
+        <span>Failed Deliveries</span>
+        <strong class="failed-value">
+          {{ summary.failedRecipients }}
+        </strong>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="recent-jobs-section">
+    <div class="table-heading">
+      <div>
+        <h3>Recent Email Jobs</h3>
+        <p>Latest email automation activity</p>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Job ID</th>
+            <th>Record</th>
+            <th>Template</th>
+            <th>Recipients</th>
+            <th>Sent</th>
+            <th>Failed</th>
+            <th>Status</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let job of recentJobs">
+            <td>#{{ job.id }}</td>
+
+            <td>
+              <strong>{{ job.recordReference }}</strong>
+              <small>{{ job.recordTitle }}</small>
+            </td>
+
+            <td>{{ job.templateName }}</td>
+
+            <td>{{ job.totalRecipients }}</td>
+
+            <td>{{ job.sentCount }}</td>
+
+            <td>{{ job.failedCount }}</td>
+
+            <td>
+              <span class="status" [ngClass]="getStatusClass(job.status)">
+                {{ job.status }}
+              </span>
+            </td>
+
+            <td>{{ job.createdAt | date: 'dd MMM yyyy, HH:mm' }}</td>
+          </tr>
+
+          <tr *ngIf="recentJobs.length === 0">
+            <td colspan="8" class="empty-message">No email jobs found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

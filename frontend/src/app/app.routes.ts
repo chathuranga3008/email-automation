@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { SectionPage } from './section-page';
+import { Dashboard } from './components/dashboard/dashboard';
 
 export const routes: Routes = [
   {
@@ -9,7 +10,7 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: SectionPage,
+    component: Dashboard,
     data: {
       title: 'Dashboard',
       description: 'Overview of your email automation activities.',
