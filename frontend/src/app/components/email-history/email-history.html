@@ -8,6 +8,73 @@
     <button class="refresh-button" (click)="loadJobs()" [disabled]="loading">↻ Refresh</button>
   </div>
 
+  <!-- Search and Filters -->
+  <div class="filter-card">
+    <div class="search-group">
+      <label for="historySearch">Search email history</label>
+
+      <input
+        id="historySearch"
+        type="text"
+        placeholder="Search by job ID, record reference, title or template..."
+        [value]="searchTerm"
+        (input)="onSearchChange($any($event.target).value)"
+      />
+    </div>
+
+    <div class="filter-row">
+      <div class="filter-group">
+        <label for="statusFilter">Status</label>
+
+        <select
+          id="statusFilter"
+          [value]="selectedStatus"
+          (change)="onStatusChange($any($event.target).value)"
+        >
+          <option value="">All Statuses</option>
+          <option value="PENDING">Pending</option>
+          <option value="PROCESSING">Processing</option>
+          <option value="COMPLETED">Completed</option>
+          <option value="PARTIAL">Partial</option>
+          <option value="FAILED">Failed</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="createdFrom">Created From</label>
+
+        <input
+          id="createdFrom"
+          type="date"
+          [value]="createdFrom"
+          (change)="onCreatedFromChange($any($event.target).value)"
+        />
+      </div>
+
+      <div class="filter-group">
+        <label for="createdTo">Created To</label>
+
+        <input
+          id="createdTo"
+          type="date"
+          [value]="createdTo"
+          (change)="onCreatedToChange($any($event.target).value)"
+        />
+      </div>
+
+      <div class="filter-actions">
+        <button
+          type="button"
+          class="clear-filters-button"
+          (click)="clearFilters()"
+          [disabled]="!searchTerm && !selectedStatus && !createdFrom && !createdTo"
+        >
+          Clear Filters
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="loading-message" *ngIf="loading">Loading email history...</div>
 
   <div class="error-message" *ngIf="errorMessage">
@@ -48,6 +115,7 @@
               <div class="template-name">
                 {{ job.templateName }}
               </div>
+
               <div class="subject">
                 {{ job.subject }}
               </div>
