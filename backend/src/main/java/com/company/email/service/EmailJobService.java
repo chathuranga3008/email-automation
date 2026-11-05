@@ -139,13 +139,6 @@ public class EmailJobService {
     private EmailJobDetailsDTO mapEmailJobDetails(
             ResultSet rs) throws SQLException {
 
-        Number createdByValue =
-                (Number) rs.getObject("created_by");
-
-        Long createdBy = createdByValue != null
-                ? createdByValue.longValue()
-                : null;
-
         return new EmailJobDetailsDTO(
                 rs.getLong("id"),
                 rs.getString("record_reference_snapshot"),
@@ -158,7 +151,7 @@ public class EmailJobService {
                 rs.getInt("total_recipients"),
                 rs.getInt("sent_count"),
                 rs.getInt("failed_count"),
-                createdBy,
+                rs.getString("created_by"),
                 getLocalDateTime(rs, "created_at"),
                 getLocalDateTime(rs, "started_at"),
                 getLocalDateTime(rs, "completed_at")

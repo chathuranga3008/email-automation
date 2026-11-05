@@ -14,7 +14,7 @@ public record EmailJobDetailsDTO(
         Integer totalRecipients,
         Integer sentCount,
         Integer failedCount,
-        Long createdBy,
+        String createdBy,
         LocalDateTime createdAt,
         LocalDateTime startedAt,
         LocalDateTime completedAt
