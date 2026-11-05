@@ -697,6 +697,105 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_get_email_jobs` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_email_jobs`(
+    IN p_search VARCHAR(255),
+    IN p_status VARCHAR(20),
+    IN p_created_from DATE,
+    IN p_created_to DATE,
+    IN p_limit INT,
+    IN p_offset INT
+)
+BEGIN
+
+    -- Validate pagination
+    IF p_limit IS NULL OR p_limit < 1 OR p_limit > 100 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Limit must be between 1 and 100';
+    END IF;
+
+    IF p_offset IS NULL OR p_offset < 0 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Offset cannot be negative';
+    END IF;
+
+    -- Validate status
+    IF p_status IS NOT NULL
+       AND p_status NOT IN (
+           'PENDING',
+           'PROCESSING',
+           'COMPLETED',
+           'PARTIAL',
+           'FAILED'
+       ) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Invalid email job status';
+    END IF;
+
+    -- Validate date range
+    IF p_created_from IS NOT NULL
+       AND p_created_to IS NOT NULL
+       AND p_created_from > p_created_to THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Start date cannot be after end date';
+    END IF;
+
+    -- Normalize empty search and status values
+    SET p_search = NULLIF(TRIM(p_search), '');
+    SET p_status = NULLIF(TRIM(p_status), '');
+
+    SELECT
+        id,
+        record_reference_snapshot,
+        record_title_snapshot,
+        template_name_snapshot,
+        subject_snapshot,
+        status,
+        total_recipients,
+        sent_count,
+        failed_count,
+        created_at,
+        started_at,
+        completed_at
+    FROM email_jobs
+    WHERE
+        (
+            p_search IS NULL
+            OR CAST(id AS CHAR) LIKE CONCAT('%', p_search, '%')
+            OR record_reference_snapshot LIKE CONCAT('%', p_search, '%')
+            OR record_title_snapshot LIKE CONCAT('%', p_search, '%')
+            OR template_name_snapshot LIKE CONCAT('%', p_search, '%')
+        )
+        AND (
+            p_status IS NULL
+            OR status = p_status
+        )
+        AND (
+            p_created_from IS NULL
+            OR created_at >= p_created_from
+        )
+        AND (
+            p_created_to IS NULL
+            OR created_at < DATE_ADD(p_created_to, INTERVAL 1 DAY)
+        )
+    ORDER BY created_at DESC, id DESC
+    LIMIT p_offset, p_limit;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_get_email_job_logs` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1235,4 +1334,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-11-05  0:32:06
+-- Dump completed on 2026-11-05 15:46:59
