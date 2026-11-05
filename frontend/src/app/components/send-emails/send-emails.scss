@@ -1,0 +1,319 @@
+
+.send-emails-page {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.page-heading,
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.page-heading h2,
+.section-heading h3 {
+  margin: 0 0 7px;
+  color: #17243a;
+}
+
+.page-heading h2 {
+  font-size: 21px;
+}
+
+.page-heading p,
+.section-heading p {
+  margin: 0;
+  color: #8290a3;
+  font-size: 13px;
+}
+
+.refresh-button {
+  background: #3978e8;
+  border: none;
+  border-radius: 7px;
+  padding: 11px 17px;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.refresh-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.selection-card,
+.recipient-card,
+.preview-card,
+.send-card {
+  background: white;
+  border: 1px solid #e7eaf0;
+  border-radius: 10px;
+  padding: 23px;
+}
+
+.selection-card h3,
+.recipient-card h3,
+.preview-card h3 {
+  margin: 0 0 20px;
+  color: #26354b;
+  font-size: 15px;
+}
+
+.selection-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.form-group label {
+  color: #46546a;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.form-group label span {
+  color: #dc5353;
+}
+
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dfe4ec;
+  border-radius: 7px;
+  background: white;
+  color: #26354b;
+  font-size: 13px;
+  outline: none;
+}
+
+.form-group select:focus {
+  border-color: #3978e8;
+}
+
+.form-group small {
+  color: #8290a3;
+  font-size: 11px;
+}
+
+.selected-record-info {
+  margin-top: 22px;
+  padding: 15px;
+  background: #f7f9fc;
+  border-radius: 7px;
+}
+
+.selected-record-info strong {
+  color: #26354b;
+  font-size: 12px;
+}
+
+.selected-record-info p {
+  margin: 7px 0;
+  color: #46546a;
+  font-size: 13px;
+}
+
+.selected-record-info small {
+  color: #8290a3;
+  font-size: 11px;
+}
+
+.section-heading {
+  margin-bottom: 18px;
+}
+
+.section-heading h3 {
+  margin-bottom: 5px;
+}
+
+.recipient-count {
+  padding: 7px 12px;
+  background: #e8efff;
+  color: #3978e8;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: #f7f8fb;
+  color: #8290a3;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: left;
+  padding: 13px;
+}
+
+td {
+  border-bottom: 1px solid #edf0f4;
+  padding: 14px 13px;
+  color: #46546a;
+  font-size: 12px;
+}
+
+.preview-badge {
+  padding: 7px 11px;
+  background: #e5f7ef;
+  color: #15966a;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.preview-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  padding: 16px;
+  background: #f7f8fb;
+  border-radius: 7px;
+  margin-bottom: 18px;
+}
+
+.preview-meta div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.preview-meta strong {
+  color: #8290a3;
+  font-size: 11px;
+}
+
+.preview-meta span {
+  color: #26354b;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.email-preview {
+  border: 1px solid #e7eaf0;
+  border-radius: 7px;
+  padding: 22px;
+  overflow-x: auto;
+  background: white;
+}
+
+.email-preview-content {
+  color: #26354b;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.preview-note {
+  display: block;
+  margin-top: 12px;
+  color: #8290a3;
+  font-size: 11px;
+}
+
+.send-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.send-summary strong {
+  color: #26354b;
+  font-size: 14px;
+}
+
+.send-summary p {
+  margin: 7px 0 0;
+  color: #8290a3;
+  font-size: 12px;
+}
+
+.send-button {
+  align-self: flex-end;
+  background: #15966a;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  padding: 12px 23px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.send-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.error-message,
+.warning-message,
+.success-message {
+  padding: 13px;
+  border-radius: 7px;
+  font-size: 12px;
+}
+
+.error-message {
+  background: #fdeaea;
+  color: #dc5353;
+}
+
+.warning-message {
+  background: #fff4dc;
+  color: #bd841b;
+}
+
+.success-message {
+  background: #e5f7ef;
+  color: #15966a;
+}
+
+.job-result {
+  margin-top: 12px;
+  line-height: 1.8;
+}
+
+.loading-message {
+  color: #8290a3;
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .selection-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-heading,
+  .section-heading {
+    align-items: flex-start;
+  }
+
+  .selection-card,
+  .recipient-card,
+  .preview-card,
+  .send-card {
+    padding: 16px;
+  }
+
+  .email-preview {
+    padding: 12px;
+  }
+}
