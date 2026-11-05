@@ -244,3 +244,14 @@ tbody tr:last-child td {
     flex-wrap: wrap;
   }
 }
+
+.view-details-link {
+  color: #2865a5;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.view-details-link:hover {
+  text-decoration: underline;
+}

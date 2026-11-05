@@ -1,0 +1,179 @@
+<div class="details-page">
+  <div class="page-heading">
+    <div>
+      <h2>Email Job Details</h2>
+      <p>Review the email snapshot and recipient delivery results.</p>
+    </div>
+
+    <a routerLink="/email-history" class="back-button"> ← Back to Email History </a>
+  </div>
+
+  <div class="loading-message" *ngIf="loading">Loading email job details...</div>
+
+  <div class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <ng-container *ngIf="!loading && !errorMessage && jobDetails">
+    <div class="details-card">
+      <div class="card-heading">
+        <h3>Job Information</h3>
+
+        <span class="status-label" [ngClass]="getStatusClass(jobDetails.status)">
+          {{ jobDetails.status }}
+        </span>
+      </div>
+
+      <div class="details-grid">
+        <div class="detail-item">
+          <span class="detail-label">Job ID</span>
+          <span class="detail-value">#{{ jobDetails.id }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Record Reference</span>
+          <span class="detail-value">{{ jobDetails.recordReference }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Record Title</span>
+          <span class="detail-value">{{ jobDetails.recordTitle }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Template</span>
+          <span class="detail-value">{{ jobDetails.templateName }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Total Recipients</span>
+          <span class="detail-value">{{ jobDetails.totalRecipients }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Sent</span>
+          <span class="detail-value sent-count">{{ jobDetails.sentCount }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Failed</span>
+          <span class="detail-value failed-count">{{ jobDetails.failedCount }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Created At</span>
+          <span class="detail-value">
+            {{ jobDetails.createdAt | date: 'dd MMM yyyy, HH:mm:ss' }}
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Started At</span>
+          <span class="detail-value">
+            {{
+              jobDetails.startedAt ? (jobDetails.startedAt | date: 'dd MMM yyyy, HH:mm:ss') : '—'
+            }}
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Completed At</span>
+          <span class="detail-value">
+            {{
+              jobDetails.completedAt
+                ? (jobDetails.completedAt | date: 'dd MMM yyyy, HH:mm:ss')
+                : '—'
+            }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="details-card">
+      <div class="card-heading">
+        <h3>Email Snapshot</h3>
+        <span class="snapshot-note">Content captured when the job was created</span>
+      </div>
+
+      <div class="subject-section">
+        <span class="detail-label">Subject</span>
+        <div class="subject-value">{{ jobDetails.subject }}</div>
+      </div>
+
+      <div class="preview-section">
+        <span class="detail-label">Rendered Email Preview</span>
+
+        <div class="email-preview" [innerHTML]="jobDetails.bodyHtml"></div>
+      </div>
+
+      <details class="text-version" *ngIf="jobDetails.bodyText">
+        <summary>View plain-text version</summary>
+
+        <pre>{{ jobDetails.bodyText }}</pre>
+      </details>
+    </div>
+
+    <div class="details-card">
+      <div class="card-heading">
+        <h3>Recipient Delivery Logs</h3>
+        <span class="recipient-total"> {{ logs.length }} recipient(s) </span>
+      </div>
+
+      <div class="table-container" *ngIf="logs.length > 0">
+        <table>
+          <thead>
+            <tr>
+              <th>Recipient</th>
+              <th>Status</th>
+              <th>Attempts</th>
+              <th>Retryable</th>
+              <th>Last Attempt</th>
+              <th>Sent At</th>
+              <th>Error Message</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let log of logs">
+              <td>
+                <div class="recipient-name">
+                  {{ log.recipientName }}
+                </div>
+
+                <div class="recipient-email">
+                  {{ log.recipientEmail }}
+                </div>
+              </td>
+
+              <td>
+                <span class="status-label" [ngClass]="getStatusClass(log.status)">
+                  {{ log.status }}
+                </span>
+              </td>
+
+              <td>{{ log.attemptCount }}</td>
+
+              <td>
+                {{ log.isRetryable ? 'Yes' : 'No' }}
+              </td>
+
+              <td>
+                {{ log.lastAttemptAt ? (log.lastAttemptAt | date: 'dd MMM yyyy, HH:mm:ss') : '—' }}
+              </td>
+
+              <td>
+                {{ log.sentAt ? (log.sentAt | date: 'dd MMM yyyy, HH:mm:ss') : '—' }}
+              </td>
+
+              <td class="error-cell">
+                {{ log.errorMessage || '—' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="empty-message" *ngIf="logs.length === 0">No recipient logs found.</div>
+    </div>
+  </ng-container>
+</div>

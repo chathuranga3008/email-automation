@@ -1,0 +1,283 @@
+.details-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  background: #ffffff;
+  border: 1px solid #e7eaf0;
+  border-radius: 10px;
+  padding: 24px;
+}
+
+.page-heading h2 {
+  margin: 0 0 8px;
+  color: #17243a;
+  font-size: 21px;
+}
+
+.page-heading p {
+  margin: 0;
+  color: #8290a3;
+  font-size: 13px;
+}
+
+.back-button {
+  padding: 10px 16px;
+  background: #253b60;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.details-card {
+  background: #ffffff;
+  border: 1px solid #e7eaf0;
+  border-radius: 10px;
+  padding: 22px;
+}
+
+.card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.card-heading h3 {
+  margin: 0;
+  color: #17243a;
+  font-size: 15px;
+}
+
+.snapshot-note,
+.recipient-total {
+  color: #8290a3;
+  font-size: 11px;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.detail-label {
+  color: #8290a3;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.detail-value {
+  color: #34445c;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.sent-count {
+  color: #21845a;
+  font-weight: 600;
+}
+
+.failed-count {
+  color: #c0392b;
+  font-weight: 600;
+}
+
+.status-label {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.completed {
+  color: #21845a;
+  background: #e8f6ef;
+}
+
+.partial {
+  color: #a36c19;
+  background: #fff5dc;
+}
+
+.failed {
+  color: #c0392b;
+  background: #fff0ee;
+}
+
+.processing {
+  color: #2865a5;
+  background: #eaf2fc;
+}
+
+.pending,
+.unknown {
+  color: #718096;
+  background: #f1f4f8;
+}
+
+.subject-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.subject-value {
+  color: #34445c;
+  font-size: 14px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.preview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.email-preview {
+  min-height: 150px;
+  padding: 20px;
+  border: 1px solid #e7eaf0;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #34445c;
+  overflow-wrap: anywhere;
+  overflow-x: auto;
+}
+
+.text-version {
+  margin-top: 18px;
+  border-top: 1px solid #edf0f4;
+  padding-top: 14px;
+}
+
+.text-version summary {
+  color: #253b60;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.text-version pre {
+  margin-top: 14px;
+  padding: 16px;
+  background: #f7f9fc;
+  border-radius: 6px;
+  color: #34445c;
+  font-size: 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  white-space: nowrap;
+}
+
+th {
+  background: #f7f9fc;
+  color: #718096;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 14px;
+  border-bottom: 1px solid #e7eaf0;
+}
+
+td {
+  padding: 14px;
+  border-bottom: 1px solid #edf0f4;
+  color: #34445c;
+  font-size: 11px;
+  vertical-align: middle;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.recipient-name {
+  color: #17243a;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.recipient-email {
+  color: #8290a3;
+  font-size: 10px;
+}
+
+.error-cell {
+  max-width: 260px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  color: #c0392b;
+}
+
+.loading-message,
+.error-message,
+.empty-message {
+  padding: 24px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e7eaf0;
+  border-radius: 10px;
+  color: #8290a3;
+  font-size: 13px;
+}
+
+.error-message {
+  color: #c0392b;
+  background: #fff5f4;
+}
+
+@media (max-width: 900px) {
+  .details-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .card-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+}

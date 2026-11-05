@@ -7,6 +7,7 @@ import { EmailTemplateCreate } from './components/email-template-create/email-te
 import { EmailTemplateDetails } from './components/email-template-details/email-template-details';
 import { EmailTemplateEdit } from './components/email-template-edit/email-template-edit';
 import { EmailHistory } from './components/email-history/email-history';
+import { EmailJobDetailsPage } from './components/email-job-details/email-job-details';
 
 export const routes: Routes = [
   {
@@ -59,6 +60,14 @@ export const routes: Routes = [
     data: {
       title: 'Template Details',
       description: 'View email template content and configuration.',
+    },
+  },
+  {
+    path: 'email-history/:id',
+    component: EmailJobDetailsPage,
+    data: {
+      title: 'Email Job Details',
+      description: 'Review email job information and recipient delivery results.',
     },
   },
   {

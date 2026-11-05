@@ -1,35 +1,21 @@
 <div class="history-page">
-
   <div class="page-heading">
     <div>
       <h2>Email History</h2>
       <p>Review email jobs and recipient delivery history.</p>
     </div>
 
-    <button
-      class="refresh-button"
-      (click)="loadJobs()"
-      [disabled]="loading"
-    >
-      ↻ Refresh
-    </button>
+    <button class="refresh-button" (click)="loadJobs()" [disabled]="loading">↻ Refresh</button>
   </div>
 
-  <div class="loading-message" *ngIf="loading">
-    Loading email history...
-  </div>
+  <div class="loading-message" *ngIf="loading">Loading email history...</div>
 
   <div class="error-message" *ngIf="errorMessage">
     {{ errorMessage }}
   </div>
 
-  <div
-    class="history-card"
-    *ngIf="!loading && !errorMessage"
-  >
-
+  <div class="history-card" *ngIf="!loading && !errorMessage">
     <div class="table-container" *ngIf="jobs.length > 0">
-
       <table>
         <thead>
           <tr>
@@ -40,15 +26,13 @@
             <th>Recipients</th>
             <th>Created At</th>
             <th>Completed At</th>
+            <th>Action</th>
           </tr>
         </thead>
 
         <tbody>
           <tr *ngFor="let job of jobs">
-
-            <td class="job-id">
-              #{{ job.id }}
-            </td>
+            <td class="job-id">#{{ job.id }}</td>
 
             <td>
               <div class="record-reference">
@@ -70,59 +54,47 @@
             </td>
 
             <td>
-              <span
-                class="status-label"
-                [ngClass]="getStatusClass(job.status)"
-              >
+              <span class="status-label" [ngClass]="getStatusClass(job.status)">
                 {{ job.status }}
               </span>
             </td>
 
             <td>
               <div class="recipient-count">
-                <span class="sent-count">
-                  {{ job.sentCount }} sent
-                </span>
+                <span class="sent-count"> {{ job.sentCount }} sent </span>
 
                 <span class="failed-count" *ngIf="job.failedCount > 0">
                   {{ job.failedCount }} failed
                 </span>
               </div>
 
-              <div class="total-count">
-                {{ job.totalRecipients }} total
-              </div>
+              <div class="total-count">{{ job.totalRecipients }} total</div>
             </td>
 
             <td>
-              {{ job.createdAt | date:'dd MMM yyyy, HH:mm' }}
+              {{ job.createdAt | date: 'dd MMM yyyy, HH:mm' }}
             </td>
 
             <td>
-              {{ job.completedAt
-                ? (job.completedAt | date:'dd MMM yyyy, HH:mm')
-                : '—'
-              }}
+              {{ job.completedAt ? (job.completedAt | date: 'dd MMM yyyy, HH:mm') : '—' }}
             </td>
 
+            <td>
+              <a [routerLink]="['/email-history', job.id]" class="view-details-link">
+                View Details →
+              </a>
+            </td>
           </tr>
         </tbody>
       </table>
-
     </div>
 
-    <div class="empty-message" *ngIf="jobs.length === 0">
-      No email jobs found.
-    </div>
+    <div class="empty-message" *ngIf="jobs.length === 0">No email jobs found.</div>
 
     <div class="pagination" *ngIf="jobs.length > 0">
-
-      <span class="page-number">
-        Page {{ currentPage + 1 }}
-      </span>
+      <span class="page-number"> Page {{ currentPage + 1 }} </span>
 
       <div class="pagination-actions">
-
         <button
           class="pagination-button"
           (click)="previousPage()"
@@ -131,18 +103,10 @@
           Previous
         </button>
 
-        <button
-          class="pagination-button"
-          (click)="nextPage()"
-          [disabled]="!hasNextPage || loading"
-        >
+        <button class="pagination-button" (click)="nextPage()" [disabled]="!hasNextPage || loading">
           Next
         </button>
-
       </div>
-
     </div>
-
   </div>
-
 </div>
