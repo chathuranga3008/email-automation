@@ -1,0 +1,253 @@
+
+<div class="send-emails-page">
+
+  <div class="page-heading">
+    <div>
+      <h2>Send Emails</h2>
+      <p>Select a record and email template to create an email job.</p>
+    </div>
+
+    <button
+      class="refresh-button"
+      type="button"
+      (click)="loadInitialData()"
+      [disabled]="loadingPage || sending"
+    >
+      ↻ Refresh
+    </button>
+  </div>
+
+  <div class="loading-message" *ngIf="loadingPage">
+    Loading records and email templates...
+  </div>
+
+  <div class="error-message" *ngIf="recordsError">
+    {{ recordsError }}
+  </div>
+
+  <div class="error-message" *ngIf="templatesError">
+    {{ templatesError }}
+  </div>
+
+  <div class="selection-card" *ngIf="!loadingPage">
+
+    <h3>Email Configuration</h3>
+
+    <div class="selection-grid">
+
+      <div class="form-group">
+        <label for="record">Select Record <span>*</span></label>
+
+        <select
+          id="record"
+          name="record"
+          [(ngModel)]="selectedRecordId"
+          (ngModelChange)="onRecordChange($event)"
+        >
+          <option [ngValue]="null">-- Select a record --</option>
+
+          <option
+            *ngFor="let record of records"
+            [ngValue]="record.id"
+          >
+            {{ record.recordReference }} - {{ record.recordTitle }}
+          </option>
+        </select>
+
+        <small *ngIf="records.length === 0">
+          No records available.
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="template">Select Email Template <span>*</span></label>
+
+        <select
+          id="template"
+          name="template"
+          [(ngModel)]="selectedTemplateId"
+          (ngModelChange)="onTemplateChange($event)"
+        >
+          <option [ngValue]="null">-- Select a template --</option>
+
+          <option
+            *ngFor="let template of templates"
+            [ngValue]="template.id"
+          >
+            {{ template.templateName }} ({{ template.templateCode }})
+          </option>
+        </select>
+
+        <small *ngIf="templates.length === 0">
+          No active email templates available.
+        </small>
+      </div>
+
+    </div>
+
+    <div class="selected-record-info" *ngIf="selectedRecord">
+      <strong>Selected Record</strong>
+
+      <p>
+        {{ selectedRecord.recordReference }} -
+        {{ selectedRecord.recordTitle }}
+      </p>
+
+      <small>{{ selectedRecord.description }}</small>
+    </div>
+
+  </div>
+
+  <!-- Recipient Review -->
+
+  <div class="recipient-card" *ngIf="selectedRecordId !== null">
+
+    <div class="section-heading">
+      <div>
+        <h3>Recipients</h3>
+        <p>Active recipients associated with the selected record.</p>
+      </div>
+
+      <span class="recipient-count">
+        {{ recipients.length }} / 10
+      </span>
+    </div>
+
+    <div class="loading-message" *ngIf="loadingRecipients">
+      Loading recipients...
+    </div>
+
+    <div class="error-message" *ngIf="recipientError">
+      {{ recipientError }}
+    </div>
+
+    <div class="warning-message"
+         *ngIf="!loadingRecipients && !recipientError && recipients.length === 0">
+      No active recipients found for this record.
+    </div>
+
+    <div class="warning-message"
+         *ngIf="recipients.length > 10">
+      This record has more than 10 active recipients. Email sending is not allowed.
+    </div>
+
+    <div class="table-wrapper"
+         *ngIf="!loadingRecipients && recipients.length > 0">
+
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Recipient Name</th>
+            <th>Email Address</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let recipient of recipients; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ recipient.recipientName }}</td>
+            <td>{{ recipient.emailAddress }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+
+  <!-- Automatic Email Preview -->
+
+  <div
+    class="preview-card"
+    *ngIf="selectedRecord && selectedTemplate"
+  >
+
+    <div class="section-heading">
+      <div>
+        <h3>Email Preview</h3>
+        <p>Preview generated automatically from your selections.</p>
+      </div>
+
+      <span class="preview-badge">Automatic Preview</span>
+    </div>
+
+    <div class="preview-meta">
+
+      <div>
+        <strong>Template</strong>
+        <span>{{ selectedTemplate.templateName }}</span>
+      </div>
+
+      <div>
+        <strong>Preview Recipient</strong>
+        <span>{{ previewRecipientName }}</span>
+      </div>
+
+      <div>
+        <strong>Subject</strong>
+        <span>{{ previewSubject }}</span>
+      </div>
+
+    </div>
+
+    <div class="email-preview">
+      <div
+        class="email-preview-content"
+        [innerHTML]="previewBodyHtml"
+      ></div>
+    </div>
+
+    <small class="preview-note">
+      This is a sample preview using the first active recipient when available.
+      Actual emails will use the recipient snapshots created by the backend.
+    </small>
+
+  </div>
+
+  <!-- Send Actions -->
+
+  <div
+    class="send-card"
+    *ngIf="selectedRecord && selectedTemplate"
+  >
+
+    <div class="send-summary">
+      <strong>Ready to send?</strong>
+
+      <p>
+        This action creates one email job for
+        {{ recipients.length }} recipient(s).
+      </p>
+    </div>
+
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <div class="success-message" *ngIf="successMessage">
+      {{ successMessage }}
+
+      <div *ngIf="createdJob" class="job-result">
+        <strong>Email Job ID:</strong> #{{ createdJob.id }}
+        <br>
+
+        <strong>Status:</strong> {{ createdJob.status }}
+        <br>
+
+        <strong>Recipients:</strong> {{ createdJob.totalRecipients }}
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="send-button"
+      (click)="sendEmails()"
+      [disabled]="!canSend"
+    >
+      {{ sending ? 'Creating Email Job...' : '✉ Send Emails' }}
+    </button>
+
+  </div>
+
+</div>
