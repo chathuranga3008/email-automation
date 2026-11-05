@@ -1,13 +1,13 @@
 package com.company.email.controller;
 
-import com.company.email.dto.EmailJobResponseDTO;
-import com.company.email.dto.SendEmailRequestDTO;
+import com.company.email.dto.*;
 import com.company.email.service.EmailJobService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/email-jobs")
@@ -24,5 +24,42 @@ public class EmailJobController {
             @Valid @RequestBody SendEmailRequestDTO request) {
 
         return emailJobService.createEmailJob(request);
+    }
+
+    @GetMapping
+    public List<EmailJobHistoryDTO> getEmailJobs(
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            LocalDate createdFrom,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            LocalDate createdTo,
+            @RequestParam(defaultValue = "10") int limit,
+            @RequestParam(defaultValue = "0") int offset) {
+
+        return emailJobService.getEmailJobs(
+                search,
+                status,
+                createdFrom,
+                createdTo,
+                limit,
+                offset
+        );
+    }
+
+    @GetMapping("/{id}")
+    public EmailJobDetailsDTO getEmailJobDetails(
+            @PathVariable Long id) {
+
+        return emailJobService.getEmailJobDetails(id);
+    }
+
+    @GetMapping("/{id}/logs")
+    public List<EmailJobLogDTO> getEmailJobLogs(
+            @PathVariable Long id) {
+
+        return emailJobService.getEmailJobLogs(id);
     }
 }

@@ -24,10 +24,7 @@ public class GlobalExceptionHandler {
                     .body(Map.of("message", message));
         }
 
-        if (message != null && (
-                message.contains("is required") ||
-                        message.contains("Invalid")
-        )) {
+        if (isBadRequestMessage(message)) {
             return ResponseEntity
                     .badRequest()
                     .body(Map.of("message", message));
@@ -41,6 +38,17 @@ public class GlobalExceptionHandler {
                 ));
     }
 
+    private boolean isBadRequestMessage(String message) {
+
+        return message != null && (
+                message.contains("is required") ||
+                        message.contains("Invalid") ||
+                        message.contains("must be between") ||
+                        message.contains("cannot be negative") ||
+                        message.contains("Start date cannot be after end date")
+        );
+    }
+
     private String getDatabaseErrorMessage(Throwable exception) {
 
         Throwable current = exception;
@@ -49,12 +57,34 @@ public class GlobalExceptionHandler {
 
             String message = current.getMessage();
 
-            if (message != null && (
-                    message.equals("Template code already exists") ||
-                            message.contains("is required") ||
-                            message.contains("Invalid")
-            )) {
-                return message;
+            if (message != null) {
+
+                if (message.contains("Template code already exists")) {
+                    return "Template code already exists";
+                }
+
+                if (message.contains("Limit must be between 1 and 100")) {
+                    return "Limit must be between 1 and 100";
+                }
+
+                if (message.contains("Offset cannot be negative")) {
+                    return "Offset cannot be negative";
+                }
+
+                if (message.contains("Invalid email job status")) {
+                    return "Invalid email job status";
+                }
+
+                if (message.contains("Start date cannot be after end date")) {
+                    return "Start date cannot be after end date";
+                }
+
+                // Avoid returning the JDBC wrapper message.
+                if (!message.contains("PreparedStatementCallback") &&
+                        (message.contains("is required") ||
+                                message.contains("Invalid"))) {
+                    return message;
+                }
             }
 
             current = current.getCause();
