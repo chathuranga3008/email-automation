@@ -44,7 +44,8 @@ public class GlobalExceptionHandler {
                 message.contains("is required") ||
                         message.contains("Invalid") ||
                         message.contains("must be between") ||
-                        message.contains("cannot be negative")
+                        message.contains("cannot be negative") ||
+                        message.contains("Start date cannot be after end date")
         );
     }
 
@@ -70,8 +71,18 @@ public class GlobalExceptionHandler {
                     return "Offset cannot be negative";
                 }
 
-                if (message.contains("is required") ||
-                        message.contains("Invalid")) {
+                if (message.contains("Invalid email job status")) {
+                    return "Invalid email job status";
+                }
+
+                if (message.contains("Start date cannot be after end date")) {
+                    return "Start date cannot be after end date";
+                }
+
+                // Avoid returning the JDBC wrapper message.
+                if (!message.contains("PreparedStatementCallback") &&
+                        (message.contains("is required") ||
+                                message.contains("Invalid"))) {
                     return message;
                 }
             }

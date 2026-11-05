@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -64,14 +65,22 @@ public class EmailJobService {
     }
 
     public List<EmailJobHistoryDTO> getEmailJobs(
+            String search,
+            String status,
+            LocalDate createdFrom,
+            LocalDate createdTo,
             int limit,
             int offset) {
 
-        String sql = "CALL sp_get_email_jobs(?, ?)";
+        String sql = "CALL sp_get_email_jobs(?, ?, ?, ?, ?, ?)";
 
         return jdbcTemplate.query(
                 sql,
                 (rs, rowNum) -> mapEmailJobHistory(rs),
+                search,
+                status,
+                createdFrom,
+                createdTo,
                 limit,
                 offset
         );
