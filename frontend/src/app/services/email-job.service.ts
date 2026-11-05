@@ -6,7 +6,10 @@ import { environment } from '../../environments/environment';
 
 import {
   SendEmailRequest,
-  EmailJobResponse
+  EmailJobResponse,
+  EmailJobHistory,
+  EmailJobDetails,
+  EmailJobLog
 } from '../models/email-job.model';
 
 @Injectable({
@@ -22,6 +25,33 @@ export class EmailJobService {
     return this.http.post<EmailJobResponse>(
       this.apiUrl,
       request
+    );
+  }
+
+  getEmailJobs(
+    limit: number = 10,
+    offset: number = 0
+  ): Observable<EmailJobHistory[]> {
+    return this.http.get<EmailJobHistory[]>(
+      this.apiUrl,
+      {
+        params: {
+          limit: limit,
+          offset: offset
+        }
+      }
+    );
+  }
+
+  getEmailJobDetails(jobId: number): Observable<EmailJobDetails> {
+    return this.http.get<EmailJobDetails>(
+      `${this.apiUrl}/${jobId}`
+    );
+  }
+
+  getEmailJobLogs(jobId: number): Observable<EmailJobLog[]> {
+    return this.http.get<EmailJobLog[]>(
+      `${this.apiUrl}/${jobId}/logs`
     );
   }
 }
