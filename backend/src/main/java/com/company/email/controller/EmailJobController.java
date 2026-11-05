@@ -1,8 +1,6 @@
 package com.company.email.controller;
 
-import com.company.email.dto.EmailJobHistoryDTO;
-import com.company.email.dto.EmailJobResponseDTO;
-import com.company.email.dto.SendEmailRequestDTO;
+import com.company.email.dto.*;
 import com.company.email.service.EmailJobService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -32,5 +30,19 @@ public class EmailJobController {
             @RequestParam(defaultValue = "0") int offset) {
 
         return emailJobService.getEmailJobs(limit, offset);
+    }
+
+    @GetMapping("/{id}")
+    public EmailJobDetailsDTO getEmailJobDetails(
+            @PathVariable Long id) {
+
+        return emailJobService.getEmailJobDetails(id);
+    }
+
+    @GetMapping("/{id}/logs")
+    public List<EmailJobLogDTO> getEmailJobLogs(
+            @PathVariable Long id) {
+
+        return emailJobService.getEmailJobLogs(id);
     }
 }
