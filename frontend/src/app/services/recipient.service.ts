@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { Recipient, RecipientManagement, CreateRecipientRequest, UpdateRecipientRequest } from '../models/recipient.model';
+import { Recipient, RecipientManagement, CreateRecipientRequest, UpdateRecipientRequest, RecipientStatusRequest } from '../models/recipient.model';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +65,17 @@ export class RecipientService {
   ): Observable<void> {
     return this.http.put<void>(
       `${this.apiUrl}/recipients/${id}`,
+      request
+    );
+  }
+
+  // Activate or deactivate a recipient.
+  updateRecipientStatus(
+    id: number,
+    request: RecipientStatusRequest
+  ): Observable<void> {
+    return this.http.patch<void>(
+      `${this.apiUrl}/recipients/${id}/status`,
       request
     );
   }

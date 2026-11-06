@@ -255,3 +255,40 @@
 .edit-button:hover {
   background: #e1e9f5;
 }
+
+.status-actions {
+  margin-top: 10px;
+}
+
+.status-button {
+  width: 100%;
+  padding: 9px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.activate-button {
+  background: #e8f6ef;
+  color: #21845a;
+}
+
+.activate-button:hover {
+  background: #d8efe3;
+}
+
+.deactivate-button {
+  background: #fff1e8;
+  color: #a05b36;
+}
+
+.deactivate-button:hover {
+  background: #ffe5d5;
+}
+
+.status-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

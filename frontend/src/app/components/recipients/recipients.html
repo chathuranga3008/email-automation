@@ -88,6 +88,25 @@
           Edit Recipient
         </button>
       </div>
+
+      <div class="status-actions">
+        <button
+          type="button"
+          class="status-button"
+          [class.activate-button]="!recipient.isActive"
+          [class.deactivate-button]="recipient.isActive"
+          (click)="toggleRecipientStatus(recipient)"
+          [disabled]="updatingRecipientIds.has(recipient.recipientId)"
+        >
+          {{
+            updatingRecipientIds.has(recipient.recipientId)
+              ? 'Updating...'
+              : recipient.isActive
+                ? 'Deactivate'
+                : 'Activate'
+          }}
+        </button>
+      </div>
     </div>
 
     <div class="empty-message" *ngIf="recipients.length === 0">No recipients found.</div>

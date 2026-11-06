@@ -22,3 +22,7 @@ export interface UpdateRecipientRequest {
   recipientName: string;
   emailAddress: string;
 }
+
+export interface RecipientStatusRequest {
+  isActive: boolean;
+}
