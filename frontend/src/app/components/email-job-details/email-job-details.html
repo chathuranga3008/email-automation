@@ -5,7 +5,9 @@
       <p>Review the email snapshot and recipient delivery results.</p>
     </div>
 
-    <a routerLink="/email-history" class="back-button"> ← Back to Email History </a>
+    <a routerLink="/email-history" queryParamsHandling="preserve" class="back-button">
+      ← Back to Email History
+    </a>
   </div>
 
   <div class="loading-message" *ngIf="loading">Loading email job details...</div>

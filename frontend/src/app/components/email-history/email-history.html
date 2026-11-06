@@ -148,7 +148,11 @@
             </td>
 
             <td>
-              <a [routerLink]="['/email-history', job.id]" class="view-details-link">
+              <a
+                [routerLink]="['/email-history', job.id]"
+                queryParamsHandling="preserve"
+                class="view-details-link"
+              >
                 View Details →
               </a>
             </td>

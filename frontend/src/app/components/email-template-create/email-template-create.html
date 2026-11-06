@@ -16,6 +16,7 @@
           name="templateCode"
           type="text"
           [(ngModel)]="templateCode"
+          (ngModelChange)="saveDraft()"
           placeholder="e.g. WELCOME_EMAIL"
           maxlength="100"
           required
@@ -33,6 +34,7 @@
           name="templateName"
           type="text"
           [(ngModel)]="templateName"
+          (ngModelChange)="saveDraft()"
           placeholder="Enter template name"
           maxlength="200"
           required
@@ -48,6 +50,7 @@
           name="subjectTemplate"
           type="text"
           [(ngModel)]="subjectTemplate"
+          (ngModelChange)="saveDraft()"
           placeholder="e.g. Update regarding {{ '{{recordReference}}' }}"
           maxlength="500"
           required
@@ -62,6 +65,7 @@
           id="bodyHtml"
           name="bodyHtml"
           [(ngModel)]="bodyHtml"
+          (ngModelChange)="saveDraft()"
           rows="12"
           placeholder="Enter HTML email content"
           required
@@ -76,6 +80,7 @@
           id="bodyText"
           name="bodyText"
           [(ngModel)]="bodyText"
+          (ngModelChange)="saveDraft()"
           rows="7"
           placeholder="Optional plain-text email content"
           [disabled]="loading"
@@ -97,12 +102,7 @@
       </div>
 
       <div class="form-actions">
-        <button
-          type="button"
-          class="cancel-button"
-          routerLink="/email-templates"
-          [disabled]="loading"
-        >
+        <button type="button" class="cancel-button" (click)="cancel()" [disabled]="loading">
           Cancel
         </button>
 
