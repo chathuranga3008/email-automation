@@ -44,7 +44,7 @@ CREATE TABLE `records` (
 
 LOCK TABLES `records` WRITE;
 /*!40000 ALTER TABLE `records` DISABLE KEYS */;
-INSERT INTO `records` VALUES (1,'CASE-2026-001','Annual Compliance Review','Annual compliance review notification',1,'2026-10-31 16:37:45','2026-10-31 16:37:45'),(2,'CASE-2026-002','System Maintenance Notice','Scheduled system maintenance notification',1,'2026-10-31 16:37:45','2026-10-31 16:37:45'),(3,'CASE-2026-003','Project Status Update','Project status notification',1,'2026-10-31 16:37:45','2026-10-31 16:37:45');
+INSERT INTO `records` VALUES (1,'CASE-2026-001','Annual Compliance Review','Annual compliance review notification',1,'2026-10-31 16:37:45','2026-11-06 21:23:19'),(2,'CASE-2026-002','System Maintenance Notice','Scheduled system maintenance notification',1,'2026-10-31 16:37:45','2026-10-31 16:37:45'),(3,'CASE-2026-003','Project Status Update','Project status notification',1,'2026-10-31 16:37:45','2026-10-31 16:37:45');
 /*!40000 ALTER TABLE `records` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-11-06 18:06:32
+-- Dump completed on 2026-11-06 21:50:56
