@@ -287,3 +287,24 @@
   align-items: center;
   gap: 10px;
 }
+
+.edit-button {
+  padding: 9px 14px;
+  background: #edf0f4;
+  color: #253b60;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.edit-button:hover {
+  background: #dce2ea;
+}
+
+.status-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
