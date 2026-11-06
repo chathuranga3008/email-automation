@@ -399,7 +399,6 @@ export class SendEmails implements OnInit, OnDestroy {
 
           this.cdr.markForCheck();
         }
-
       });
   }
 }

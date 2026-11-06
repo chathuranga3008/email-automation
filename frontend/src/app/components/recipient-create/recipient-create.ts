@@ -130,7 +130,6 @@ export class RecipientCreate implements OnInit, OnDestroy {
         this.cdr.markForCheck();
 
       }
-
     });
   }
 }

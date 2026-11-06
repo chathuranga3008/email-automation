@@ -98,5 +98,4 @@ export class EmailJobDetailsPage implements OnInit {
         return 'unknown';
     }
   }
-
 }

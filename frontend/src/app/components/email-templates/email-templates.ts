@@ -99,7 +99,6 @@ export class EmailTemplates implements OnInit {
 
         this.cdr.markForCheck();
       }
-
     });
   }
 }

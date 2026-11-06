@@ -153,7 +153,6 @@ export class EmailTemplateCreate implements OnInit, OnDestroy {
         this.cdr.markForCheck();
 
       }
-
     });
   }
 }
