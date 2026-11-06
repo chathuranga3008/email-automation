@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { Recipient, RecipientManagement } from '../models/recipient.model';
+import { Recipient, RecipientManagement, CreateRecipientRequest, UpdateRecipientRequest } from '../models/recipient.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +40,32 @@ export class RecipientService {
     return this.http.get<RecipientManagement[]>(
       `${this.apiUrl}/recipients`,
       { params }
+    );
+  }
+
+  // Retrieve one recipient by ID.
+  getRecipientById(id: number): Observable<RecipientManagement> {
+    return this.http.get<RecipientManagement>(
+      `${this.apiUrl}/recipients/${id}`
+    );
+  }
+
+  // Create a new recipient.
+  createRecipient(request: CreateRecipientRequest): Observable<number> {
+    return this.http.post<number>(
+      `${this.apiUrl}/recipients`,
+      request
+    );
+  }
+
+  // Update an existing recipient.
+  updateRecipient(
+    id: number,
+    request: UpdateRecipientRequest
+  ): Observable<void> {
+    return this.http.put<void>(
+      `${this.apiUrl}/recipients/${id}`,
+      request
     );
   }
 }

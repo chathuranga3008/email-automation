@@ -12,3 +12,13 @@ export interface RecipientManagement {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface CreateRecipientRequest {
+  recipientName: string;
+  emailAddress: string;
+}
+
+export interface UpdateRecipientRequest {
+  recipientName: string;
+  emailAddress: string;
+}
