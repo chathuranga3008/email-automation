@@ -78,6 +78,16 @@
       <div class="recipient-footer">
         <span>Recipient ID: #{{ recipient.recipientId }}</span>
       </div>
+
+      <div class="recipient-actions">
+        <button
+          type="button"
+          class="edit-button"
+          [routerLink]="['/recipients', recipient.recipientId, 'edit']"
+        >
+          Edit Recipient
+        </button>
+      </div>
     </div>
 
     <div class="empty-message" *ngIf="recipients.length === 0">No recipients found.</div>

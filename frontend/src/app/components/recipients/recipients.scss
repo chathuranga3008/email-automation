@@ -235,3 +235,23 @@
     width: 100%;
   }
 }
+
+.recipient-actions {
+  margin-top: 14px;
+}
+
+.edit-button {
+  width: 100%;
+  padding: 9px 14px;
+  background: #edf2fa;
+  color: #253b60;
+  border: 1px solid #dce4f0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.edit-button:hover {
+  background: #e1e9f5;
+}

@@ -10,6 +10,7 @@ import { EmailHistory } from './components/email-history/email-history';
 import { EmailJobDetailsPage } from './components/email-job-details/email-job-details';
 import { Recipients } from './components/recipients/recipients';
 import { RecipientCreate } from './components/recipient-create/recipient-create';
+import { RecipientEdit } from './components/recipient-edit/recipient-edit';
 
 export const routes: Routes = [
   {
@@ -86,6 +87,14 @@ export const routes: Routes = [
     data: {
       title: 'Create Recipient',
       description: 'Add a new email recipient.',
+    },
+  },
+  {
+    path: 'recipients/:id/edit',
+    component: RecipientEdit,
+    data: {
+      title: 'Edit Recipient',
+      description: 'Update an existing email recipient.',
     },
   },
   {
