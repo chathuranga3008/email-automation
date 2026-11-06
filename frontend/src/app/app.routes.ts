@@ -8,6 +8,7 @@ import { EmailTemplateDetails } from './components/email-template-details/email-
 import { EmailTemplateEdit } from './components/email-template-edit/email-template-edit';
 import { EmailHistory } from './components/email-history/email-history';
 import { EmailJobDetailsPage } from './components/email-job-details/email-job-details';
+import { Recipients } from './components/recipients/recipients';
 
 export const routes: Routes = [
   {
@@ -80,7 +81,7 @@ export const routes: Routes = [
   },
   {
     path: 'recipients',
-    component: SectionPage,
+    component: Recipients,
     data: {
       title: 'Recipients',
       description: 'View and manage email recipients.',
