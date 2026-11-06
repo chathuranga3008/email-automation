@@ -292,3 +292,159 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+/* Record Assignment Management */
+.assignments-button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 9px 14px;
+  background: #253b60;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.assignments-button:hover {
+  background: #1b2e4c;
+}
+
+.assignments-panel {
+  margin-top: 16px;
+  padding: 16px;
+  background: #f8fafd;
+  border: 1px solid #e1e7f0;
+  border-radius: 8px;
+}
+
+.assignments-panel h4 {
+  margin: 0 0 14px;
+  color: #17243a;
+  font-size: 14px;
+}
+
+.assignment-warning {
+  padding: 10px;
+  margin: 0 0 12px;
+  background: #fff1e8;
+  color: #a05b36;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.assignment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.assignment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid #e7eaf0;
+  border-radius: 6px;
+}
+
+.assignment-record-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.assignment-record-info strong {
+  color: #253b60;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.assignment-record-info > span {
+  color: #8290a3;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.assignment-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.record-status,
+.assignment-label {
+  padding: 4px 7px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.assigned-label {
+  color: #21845a;
+  background: #e8f6ef;
+}
+
+.unassigned-label {
+  color: #718096;
+  background: #edf0f4;
+}
+
+.assignment-action-button {
+  flex-shrink: 0;
+  min-width: 75px;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.assign-button {
+  background: #e8f6ef;
+  color: #21845a;
+}
+
+.assign-button:hover {
+  background: #d8efe3;
+}
+
+.unassign-button {
+  background: #fff1e8;
+  color: #a05b36;
+}
+
+.unassign-button:hover {
+  background: #ffe5d5;
+}
+
+.assignment-action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.assignments-panel .loading-message,
+.assignments-panel .error-message,
+.assignments-panel .empty-message {
+  padding: 14px;
+  margin: 0;
+  font-size: 11px;
+}
+
+@media (max-width: 400px) {
+  .assignment-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .assignment-action-button {
+    width: 100%;
+  }
+}

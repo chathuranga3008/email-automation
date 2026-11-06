@@ -201,44 +201,43 @@ export class Recipients implements OnInit {
     this.assignmentsLoading = true;
     this.assignmentsErrorMessage = '';
 
-    this.cdr.markForCheck();
+    this.cdr.detectChanges();
 
     this.recipientService.getRecipientRecordAssignments(recipientId).pipe(
 
-      catchError(error => {
-
-        if (this.expandedRecipientId === recipientId) {
-          this.assignmentsErrorMessage =
-            error?.error?.message ||
-            error?.error?.detail ||
-            'Unable to load record assignments.';
-        }
-
-        return of([] as RecipientRecordAssignment[]);
-
-      }),
-
-      finalize(() => {
-
-        if (this.expandedRecipientId === recipientId) {
-          this.assignmentsLoading = false;
-          this.cdr.markForCheck();
-        }
-
-      }),
-
       takeUntilDestroyed(this.destroyRef)
 
-    ).subscribe(records => {
+    ).subscribe({
 
-      // Ignore responses for a recipient whose panel has since been closed.
-      if (this.expandedRecipientId !== recipientId) {
-        return;
+      next: records => {
+
+        if (this.expandedRecipientId !== recipientId) {
+          return;
+        }
+
+        this.recipientRecords = records;
+        this.assignmentsLoading = false;
+
+        this.cdr.detectChanges();
+
+      },
+
+      error: error => {
+
+        if (this.expandedRecipientId !== recipientId) {
+          return;
+        }
+
+        this.assignmentsErrorMessage =
+          error?.error?.message ||
+          error?.error?.detail ||
+          'Unable to load record assignments.';
+
+        this.assignmentsLoading = false;
+
+        this.cdr.detectChanges();
+
       }
-
-      this.recipientRecords = records;
-      this.cdr.markForCheck();
-
     });
   }
 

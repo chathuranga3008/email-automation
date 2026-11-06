@@ -87,6 +87,14 @@
         >
           Edit Recipient
         </button>
+
+        <button type="button" class="assignments-button" (click)="toggleAssignments(recipient)">
+          {{
+            expandedRecipientId === recipient.recipientId
+              ? 'Hide Assignments'
+              : 'Manage Assignments'
+          }}
+        </button>
       </div>
 
       <div class="status-actions">
@@ -106,6 +114,70 @@
                 : 'Activate'
           }}
         </button>
+      </div>
+
+      <!-- Expandable Record Assignments -->
+      <div class="assignments-panel" *ngIf="expandedRecipientId === recipient.recipientId">
+        <h4>Record Assignments</h4>
+
+        <p class="assignment-warning" *ngIf="!recipient.isActive">
+          This recipient is inactive. New record assignments are disabled.
+        </p>
+
+        <div class="loading-message" *ngIf="assignmentsLoading">Loading record assignments...</div>
+
+        <div class="error-message" *ngIf="assignmentsErrorMessage">
+          {{ assignmentsErrorMessage }}
+        </div>
+
+        <div class="assignment-list" *ngIf="!assignmentsLoading && !assignmentsErrorMessage">
+          <div class="assignment-item" *ngFor="let record of recipientRecords">
+            <div class="assignment-record-info">
+              <strong>{{ record.recordTitle }}</strong>
+              <span>{{ record.recordReference }}</span>
+
+              <div class="assignment-status">
+                <span
+                  class="record-status"
+                  [class.active-label]="record.recordIsActive"
+                  [class.inactive-label]="!record.recordIsActive"
+                >
+                  {{ record.recordIsActive ? 'Active Record' : 'Inactive Record' }}
+                </span>
+
+                <span
+                  class="assignment-label"
+                  [class.assigned-label]="record.isAssigned"
+                  [class.unassigned-label]="!record.isAssigned"
+                >
+                  {{ record.isAssigned ? 'Assigned' : 'Not Assigned' }}
+                </span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="assignment-action-button"
+              [class.assign-button]="!record.isAssigned"
+              [class.unassign-button]="record.isAssigned"
+              (click)="toggleRecordAssignment(recipient, record)"
+              [disabled]="
+                updatingRecordIds.has(record.recordId) ||
+                (!record.isAssigned && (!recipient.isActive || !record.recordIsActive))
+              "
+            >
+              {{
+                updatingRecordIds.has(record.recordId)
+                  ? 'Updating...'
+                  : record.isAssigned
+                    ? 'Unassign'
+                    : 'Assign'
+              }}
+            </button>
+          </div>
+
+          <p class="empty-message" *ngIf="recipientRecords.length === 0">No records available.</p>
+        </div>
       </div>
     </div>
 
