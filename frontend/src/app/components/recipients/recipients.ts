@@ -9,7 +9,7 @@ import { Subject, debounceTime, switchMap, catchError, of, EMPTY, tap, finalize 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { RecipientService } from '../../services/recipient.service';
-import { RecipientManagement, RecipientStatusRequest } from '../../models/recipient.model';
+import { RecipientManagement, RecipientStatusRequest, RecipientRecordAssignment, RecipientAssignmentRequest } from '../../models/recipient.model';
 
 @Component({
   selector: 'app-recipients',
@@ -28,6 +28,15 @@ export class Recipients implements OnInit {
 
   // Used by the template to disable individual status buttons.
   updatingRecipientIds = new Set<number>();
+
+  // Assignment panel state.
+  expandedRecipientId: number | null = null;
+  recipientRecords: RecipientRecordAssignment[] = [];
+
+  assignmentsLoading = false;
+  assignmentsErrorMessage = '';
+
+  updatingRecordIds = new Set<number>();
 
   recipients: RecipientManagement[] = [];
 
@@ -161,6 +170,129 @@ export class Recipients implements OnInit {
 
         this.updatingRecipientIds.delete(recipient.recipientId);
 
+        this.cdr.markForCheck();
+
+      }),
+
+      takeUntilDestroyed(this.destroyRef)
+
+    ).subscribe();
+  }
+
+  // Open or close the assignment section for a recipient.
+  toggleAssignments(recipient: RecipientManagement): void {
+
+    if (this.expandedRecipientId === recipient.recipientId) {
+      this.expandedRecipientId = null;
+      this.recipientRecords = [];
+      this.assignmentsErrorMessage = '';
+      return;
+    }
+
+    this.expandedRecipientId = recipient.recipientId;
+    this.recipientRecords = [];
+
+    this.loadRecipientAssignments(recipient.recipientId);
+  }
+
+  // Load all records and their assignment status for a recipient.
+  loadRecipientAssignments(recipientId: number): void {
+
+    this.assignmentsLoading = true;
+    this.assignmentsErrorMessage = '';
+
+    this.cdr.markForCheck();
+
+    this.recipientService.getRecipientRecordAssignments(recipientId).pipe(
+
+      catchError(error => {
+
+        if (this.expandedRecipientId === recipientId) {
+          this.assignmentsErrorMessage =
+            error?.error?.message ||
+            error?.error?.detail ||
+            'Unable to load record assignments.';
+        }
+
+        return of([] as RecipientRecordAssignment[]);
+
+      }),
+
+      finalize(() => {
+
+        if (this.expandedRecipientId === recipientId) {
+          this.assignmentsLoading = false;
+          this.cdr.markForCheck();
+        }
+
+      }),
+
+      takeUntilDestroyed(this.destroyRef)
+
+    ).subscribe(records => {
+
+      // Ignore responses for a recipient whose panel has since been closed.
+      if (this.expandedRecipientId !== recipientId) {
+        return;
+      }
+
+      this.recipientRecords = records;
+      this.cdr.markForCheck();
+
+    });
+  }
+
+  // Assign or unassign a record.
+  toggleRecordAssignment(
+    recipient: RecipientManagement,
+    record: RecipientRecordAssignment
+  ): void {
+
+    if (this.updatingRecordIds.has(record.recordId)) {
+      return;
+    }
+
+    const isAssigning = !record.isAssigned;
+
+    // Prevent new assignments to inactive recipients or inactive records.
+    if (isAssigning && (!recipient.isActive || !record.recordIsActive)) {
+      return;
+    }
+
+    const request: RecipientAssignmentRequest = {
+      isAssigned: isAssigning
+    };
+
+    this.updatingRecordIds.add(record.recordId);
+    this.assignmentsErrorMessage = '';
+
+    this.cdr.markForCheck();
+
+    this.recipientService.updateRecipientRecordAssignment(
+      recipient.recipientId,
+      record.recordId,
+      request
+    ).pipe(
+
+      // Refresh the assignment list after a successful update.
+      tap(() => {
+        this.loadRecipientAssignments(recipient.recipientId);
+      }),
+
+      catchError(error => {
+
+        this.assignmentsErrorMessage =
+          error?.error?.message ||
+          error?.error?.detail ||
+          `Unable to ${isAssigning ? 'assign' : 'unassign'} record. Please try again.`;
+
+        return EMPTY;
+
+      }),
+
+      finalize(() => {
+
+        this.updatingRecordIds.delete(record.recordId);
         this.cdr.markForCheck();
 
       }),
