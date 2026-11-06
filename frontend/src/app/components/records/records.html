@@ -1,0 +1,106 @@
+<div class="records-page">
+  <div class="page-heading">
+    <div>
+      <h2>Records</h2>
+      <p>View and manage your records.</p>
+    </div>
+
+    <div class="heading-actions">
+      <button type="button" class="refresh-button" (click)="loadRecords()" [disabled]="loading">
+        ↻ Refresh
+      </button>
+    </div>
+  </div>
+
+  <!-- Search and Filters -->
+  <div class="filter-card">
+    <div class="search-group">
+      <label for="searchTerm">Search Records</label>
+
+      <input
+        id="searchTerm"
+        type="text"
+        placeholder="Search by reference, title or description..."
+        [ngModel]="searchTerm"
+        (ngModelChange)="onSearchChange($event)"
+      />
+    </div>
+
+    <div class="filter-group">
+      <label for="statusFilter">Status</label>
+
+      <select id="statusFilter" [(ngModel)]="selectedStatus" (change)="onStatusChange()">
+        <option value="all">All Records</option>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+      </select>
+    </div>
+
+    <button
+      type="button"
+      class="reset-button"
+      (click)="resetFilters()"
+      [disabled]="searchTerm === '' && selectedStatus === 'all'"
+    >
+      Reset Filters
+    </button>
+  </div>
+
+  <div class="loading-message" *ngIf="loading">Loading records...</div>
+
+  <div class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Record List -->
+  <div class="records-grid" *ngIf="!loading && !errorMessage">
+    <div class="record-card" *ngFor="let record of records">
+      <div class="record-card-header">
+        <div class="record-icon">▤</div>
+
+        <span
+          class="status-label"
+          [class.active-label]="record.isActive"
+          [class.inactive-label]="!record.isActive"
+        >
+          {{ record.isActive ? 'Active' : 'Inactive' }}
+        </span>
+      </div>
+
+      <h3>{{ record.recordTitle }}</h3>
+
+      <p class="record-reference">
+        {{ record.recordReference }}
+      </p>
+
+      <p class="record-description">
+        {{ record.description || 'No description provided.' }}
+      </p>
+
+      <div class="record-footer">
+        <span>Record ID: #{{ record.id }}</span>
+      </div>
+
+      <div class="status-actions">
+        <button
+          type="button"
+          class="status-button"
+          [class.activate-button]="!record.isActive"
+          [class.deactivate-button]="record.isActive"
+          (click)="toggleRecordStatus(record)"
+          [disabled]="updatingRecordIds.has(record.id)"
+        >
+          {{
+            updatingRecordIds.has(record.id)
+              ? 'Updating...'
+              : record.isActive
+                ? 'Deactivate'
+                : 'Activate'
+          }}
+        </button>
+      </div>
+    </div>
+
+    <div class="empty-message" *ngIf="records.length === 0">No records found.</div>
+  </div>
+</div>
