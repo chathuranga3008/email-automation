@@ -5,9 +5,13 @@
       <p>View and manage your email recipients.</p>
     </div>
 
-    <button class="refresh-button" (click)="loadRecipients()" [disabled]="loading">
-      ↻ Refresh
-    </button>
+    <div class="heading-actions">
+      <button class="create-button" routerLink="/recipients/create">+ Create Recipient</button>
+
+      <button type="button" class="refresh-button" (click)="loadRecipients()" [disabled]="loading">
+        ↻ Refresh
+      </button>
+    </div>
   </div>
 
   <!-- Search and Filters -->
