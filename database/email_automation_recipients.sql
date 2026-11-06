@@ -34,7 +34,7 @@ CREATE TABLE `recipients` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_recipients_email` (`email_address`),
   KEY `idx_recipients_active` (`is_active`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `recipients` (
 
 LOCK TABLES `recipients` WRITE;
 /*!40000 ALTER TABLE `recipients` DISABLE KEYS */;
-INSERT INTO `recipients` VALUES (1,'Amal Perera','amal@example.com',0,'2026-10-31 16:37:45','2026-11-05 11:56:51'),(2,'Kamal Silva','kamal@example.com',0,'2026-10-31 16:37:45','2026-11-05 11:56:51'),(3,'Nimali Fernando','nimali@example.com',0,'2026-10-31 16:37:45','2026-11-05 11:56:51'),(4,'Saman Jayasinghe','saman@example.com',0,'2026-10-31 16:37:45','2026-11-05 11:56:51');
+INSERT INTO `recipients` VALUES (1,'Amal Perera','amal@example.com',1,'2026-10-31 16:37:45','2026-11-06 00:27:17'),(2,'Kamal Silva','kamal@example.com',1,'2026-10-31 16:37:45','2026-11-06 17:53:14'),(3,'Nimali Fernando','nimali@example.com',1,'2026-10-31 16:37:45','2026-11-06 00:27:17'),(4,'Saman Jayasinghe','saman@example.com',1,'2026-10-31 16:37:45','2026-11-06 17:51:18'),(5,'Recipient Test','recipient.management.test.20261106@example.com',0,'2026-11-06 12:57:56','2026-11-06 15:44:07'),(7,'Test Recipient','test@example.com',0,'2026-11-06 15:44:34','2026-11-06 17:51:25');
 /*!40000 ALTER TABLE `recipients` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-11-05 15:46:59
+-- Dump completed on 2026-11-06 18:06:32
