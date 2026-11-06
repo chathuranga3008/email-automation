@@ -5,10 +5,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { forkJoin } from 'rxjs';
 
 import { EmailJobService } from '../../services/email-job.service';
-import {
-  EmailJobDetails,
-  EmailJobLog
-} from '../../models/email-job.model';
+import { EmailJobDetails, EmailJobLog } from '../../models/email-job.model';
 
 @Component({
   selector: 'app-email-job-details',
