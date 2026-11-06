@@ -2,6 +2,7 @@ import { Component, OnInit, inject, ChangeDetectorRef, DestroyRef } from '@angul
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 import { Subject, debounceTime, switchMap, catchError, of, EMPTY, tap, finalize } from 'rxjs';
 
@@ -13,7 +14,7 @@ import { RecordManagement } from '../../models/record.model';
 @Component({
   selector: 'app-records',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './records.html',
   styleUrl: './records.scss'
 })

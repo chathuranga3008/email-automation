@@ -6,6 +6,10 @@
     </div>
 
     <div class="heading-actions">
+      <button type="button" class="create-button" routerLink="/records/create">
+        + Create Record
+      </button>
+
       <button type="button" class="refresh-button" (click)="loadRecords()" [disabled]="loading">
         ↻ Refresh
       </button>

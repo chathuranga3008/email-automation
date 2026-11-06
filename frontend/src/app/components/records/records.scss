@@ -266,3 +266,24 @@
     width: 100%;
   }
 }
+
+.create-button {
+  padding: 10px 16px;
+  background: #21845a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.create-button:hover {
+  background: #196b48;
+}
+
+.heading-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

@@ -1,0 +1,72 @@
+<div class="create-record-page">
+  <div class="page-heading">
+    <div>
+      <h2>Create Record</h2>
+      <p>Add a new record to the system.</p>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <form #recordForm="ngForm" (ngSubmit)="createRecord()">
+      <div class="form-group">
+        <label for="recordReference"> Record Reference <span>*</span> </label>
+
+        <input
+          id="recordReference"
+          name="recordReference"
+          type="text"
+          [(ngModel)]="recordReference"
+          (ngModelChange)="saveDraft()"
+          placeholder="e.g. CASE-2026-004"
+          maxlength="100"
+          required
+          [disabled]="loading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="recordTitle"> Record Title <span>*</span> </label>
+
+        <input
+          id="recordTitle"
+          name="recordTitle"
+          type="text"
+          [(ngModel)]="recordTitle"
+          (ngModelChange)="saveDraft()"
+          placeholder="Enter record title"
+          maxlength="255"
+          required
+          [disabled]="loading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+
+        <textarea
+          id="description"
+          name="description"
+          [(ngModel)]="description"
+          (ngModelChange)="saveDraft()"
+          placeholder="Enter an optional record description"
+          rows="5"
+          [disabled]="loading"
+        ></textarea>
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="cancel-button" (click)="cancel()" [disabled]="loading">
+          Cancel
+        </button>
+
+        <button type="submit" class="save-button" [disabled]="loading || recordForm.invalid">
+          {{ loading ? 'Creating...' : 'Create Record' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
