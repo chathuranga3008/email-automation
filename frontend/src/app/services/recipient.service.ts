@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { Recipient, RecipientManagement, CreateRecipientRequest, UpdateRecipientRequest, RecipientStatusRequest } from '../models/recipient.model';
+import { Recipient, RecipientManagement, CreateRecipientRequest, UpdateRecipientRequest, RecipientStatusRequest, RecipientRecordAssignment, RecipientAssignmentRequest } from '../models/recipient.model';
 
 @Injectable({
   providedIn: 'root'
@@ -76,6 +76,27 @@ export class RecipientService {
   ): Observable<void> {
     return this.http.patch<void>(
       `${this.apiUrl}/recipients/${id}/status`,
+      request
+    );
+  }
+
+  // Retrieve all records and their assignment status for a recipient.
+  getRecipientRecordAssignments(
+    recipientId: number
+  ): Observable<RecipientRecordAssignment[]> {
+    return this.http.get<RecipientRecordAssignment[]>(
+      `${this.apiUrl}/recipients/${recipientId}/records`
+    );
+  }
+
+  // Assign or unassign a recipient from a record.
+  updateRecipientRecordAssignment(
+    recipientId: number,
+    recordId: number,
+    request: RecipientAssignmentRequest
+  ): Observable<void> {
+    return this.http.patch<void>(
+      `${this.apiUrl}/recipients/${recipientId}/records/${recordId}/assignment`,
       request
     );
   }

@@ -26,3 +26,15 @@ export interface UpdateRecipientRequest {
 export interface RecipientStatusRequest {
   isActive: boolean;
 }
+
+export interface RecipientRecordAssignment {
+  recordId: number;
+  recordReference: string;
+  recordTitle: string;
+  recordIsActive: boolean;
+  isAssigned: boolean;
+}
+
+export interface RecipientAssignmentRequest {
+  isAssigned: boolean;
+}
