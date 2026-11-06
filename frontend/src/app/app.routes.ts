@@ -11,6 +11,9 @@ import { EmailJobDetailsPage } from './components/email-job-details/email-job-de
 import { Recipients } from './components/recipients/recipients';
 import { RecipientCreate } from './components/recipient-create/recipient-create';
 import { RecipientEdit } from './components/recipient-edit/recipient-edit';
+import { Records } from './components/records/records';
+import { RecordCreate } from './components/record-create/record-create';
+import { RecordEdit } from './components/record-edit/record-edit';
 
 export const routes: Routes = [
   {
@@ -103,6 +106,30 @@ export const routes: Routes = [
     data: {
       title: 'Recipients',
       description: 'View and manage email recipients.',
+    },
+  },
+  {
+    path: 'records/create',
+    component: RecordCreate,
+    data: {
+      title: 'Create Record',
+      description: 'Add a new record to the system.',
+    },
+  },
+  {
+    path: 'records/:id/edit',
+    component: RecordEdit,
+    data: {
+      title: 'Edit Record',
+      description: 'Update an existing record.',
+    },
+  },
+  {
+    path: 'records',
+    component: Records,
+    data: {
+      title: 'Records',
+      description: 'View and manage your records.',
     },
   },
   {

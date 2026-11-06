@@ -1,0 +1,80 @@
+<div class="edit-record-page">
+  <div class="page-heading">
+    <div>
+      <h2>Edit Record</h2>
+      <p>Update the record's details.</p>
+    </div>
+  </div>
+
+  <div class="loading-message" *ngIf="loading">Loading record details...</div>
+
+  <div class="form-card" *ngIf="!loading && recordId > 0 && recordLoaded">
+    <form #recordForm="ngForm" (ngSubmit)="updateRecord()">
+      <div class="form-group">
+        <label for="recordReference"> Record Reference <span>*</span> </label>
+
+        <input
+          id="recordReference"
+          name="recordReference"
+          type="text"
+          [(ngModel)]="recordReference"
+          (ngModelChange)="saveDraft()"
+          placeholder="Enter record reference"
+          maxlength="100"
+          required
+          [disabled]="saving"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="recordTitle"> Record Title <span>*</span> </label>
+
+        <input
+          id="recordTitle"
+          name="recordTitle"
+          type="text"
+          [(ngModel)]="recordTitle"
+          (ngModelChange)="saveDraft()"
+          placeholder="Enter record title"
+          maxlength="255"
+          required
+          [disabled]="saving"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+
+        <textarea
+          id="description"
+          name="description"
+          [(ngModel)]="description"
+          (ngModelChange)="saveDraft()"
+          placeholder="Enter an optional record description"
+          rows="5"
+          [disabled]="saving"
+        ></textarea>
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="cancel-button" (click)="cancel()" [disabled]="saving">
+          Cancel
+        </button>
+
+        <button type="submit" class="save-button" [disabled]="saving || recordForm.invalid">
+          {{ saving ? 'Saving...' : 'Save Changes' }}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="error-message" *ngIf="!loading && errorMessage && !recordLoaded">
+    {{ errorMessage }}
+
+    <button type="button" class="back-button" (click)="cancel()">Back to Records</button>
+  </div>
+</div>
