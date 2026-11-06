@@ -4,13 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 
-import {
-  SendEmailRequest,
-  EmailJobResponse,
-  EmailJobHistory,
-  EmailJobDetails,
-  EmailJobLog
-} from '../models/email-job.model';
+import { SendEmailRequest, EmailJobResponse, EmailJobHistory, EmailJobDetails, EmailJobLog } from '../models/email-job.model';
 
 @Injectable({
   providedIn: 'root'

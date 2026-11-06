@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  inject,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';

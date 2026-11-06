@@ -4,10 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 
-import {
-  DashboardSummary,
-  RecentEmailJob
-} from '../models/dashboard.model';
+import { DashboardSummary, RecentEmailJob } from '../models/dashboard.model';
 
 @Injectable({
   providedIn: 'root'

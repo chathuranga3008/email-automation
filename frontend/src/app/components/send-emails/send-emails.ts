@@ -16,10 +16,7 @@ import { Record as EmailRecord } from '../../models/record.model';
 import { Recipient } from '../../models/recipient.model';
 import { EmailTemplate } from '../../models/email-template.model';
 
-import {
-  SendEmailRequest,
-  EmailJobResponse
-} from '../../models/email-job.model';
+import { SendEmailRequest, EmailJobResponse } from '../../models/email-job.model';
 
 interface SendEmailsState {
   selectedRecordId: number | null;

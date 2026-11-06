@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  inject,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,10 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EmailTemplateService } from '../../services/email-template.service';
 import { StatePreservationService } from '../../services/state-preservation.service';
 
-import {
-  EmailTemplate,
-  UpdateEmailTemplateRequest
-} from '../../models/email-template.model';
+import { EmailTemplate, UpdateEmailTemplateRequest } from '../../models/email-template.model';
 
 @Component({
   selector: 'app-email-template-edit',
