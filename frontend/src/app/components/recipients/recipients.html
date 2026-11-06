@@ -1,0 +1,114 @@
+<div class="recipients-page">
+  <div class="page-heading">
+    <div>
+      <h2>Recipients</h2>
+      <p>View and manage your email recipients.</p>
+    </div>
+
+    <div class="heading-actions">
+      <button class="create-button" routerLink="/recipients/create">+ Create Recipient</button>
+
+      <button type="button" class="refresh-button" (click)="loadRecipients()" [disabled]="loading">
+        ↻ Refresh
+      </button>
+    </div>
+  </div>
+
+  <!-- Search and Filters -->
+  <div class="filter-card">
+    <div class="search-group">
+      <label for="searchTerm">Search Recipients</label>
+
+      <input
+        id="searchTerm"
+        type="text"
+        placeholder="Search by name or email address..."
+        [ngModel]="searchTerm"
+        (ngModelChange)="onSearchChange($event)"
+      />
+    </div>
+
+    <div class="filter-group">
+      <label for="statusFilter">Status</label>
+
+      <select id="statusFilter" [(ngModel)]="selectedStatus" (change)="onStatusChange()">
+        <option value="all">All Recipients</option>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+      </select>
+    </div>
+
+    <button
+      type="button"
+      class="reset-button"
+      (click)="resetFilters()"
+      [disabled]="searchTerm === '' && selectedStatus === 'all'"
+    >
+      Reset Filters
+    </button>
+  </div>
+
+  <div class="loading-message" *ngIf="loading">Loading recipients...</div>
+
+  <div class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Recipient List -->
+  <div class="recipients-grid" *ngIf="!loading && !errorMessage">
+    <div class="recipient-card" *ngFor="let recipient of recipients">
+      <div class="recipient-card-header">
+        <div class="recipient-icon">👤</div>
+
+        <span
+          class="status-label"
+          [class.active-label]="recipient.isActive"
+          [class.inactive-label]="!recipient.isActive"
+        >
+          {{ recipient.isActive ? 'Active' : 'Inactive' }}
+        </span>
+      </div>
+
+      <h3>{{ recipient.recipientName }}</h3>
+
+      <p class="recipient-email">
+        {{ recipient.emailAddress }}
+      </p>
+
+      <div class="recipient-footer">
+        <span>Recipient ID: #{{ recipient.recipientId }}</span>
+      </div>
+
+      <div class="recipient-actions">
+        <button
+          type="button"
+          class="edit-button"
+          [routerLink]="['/recipients', recipient.recipientId, 'edit']"
+        >
+          Edit Recipient
+        </button>
+      </div>
+
+      <div class="status-actions">
+        <button
+          type="button"
+          class="status-button"
+          [class.activate-button]="!recipient.isActive"
+          [class.deactivate-button]="recipient.isActive"
+          (click)="toggleRecipientStatus(recipient)"
+          [disabled]="updatingRecipientIds.has(recipient.recipientId)"
+        >
+          {{
+            updatingRecipientIds.has(recipient.recipientId)
+              ? 'Updating...'
+              : recipient.isActive
+                ? 'Deactivate'
+                : 'Activate'
+          }}
+        </button>
+      </div>
+    </div>
+
+    <div class="empty-message" *ngIf="recipients.length === 0">No recipients found.</div>
+  </div>
+</div>

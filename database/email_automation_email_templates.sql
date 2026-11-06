@@ -46,7 +46,7 @@ CREATE TABLE `email_templates` (
 
 LOCK TABLES `email_templates` WRITE;
 /*!40000 ALTER TABLE `email_templates` DISABLE KEYS */;
-INSERT INTO `email_templates` VALUES (1,'STANDARD_NOTIFICATION','Standard Notification','Notification: {{recordReference}}','<html><body>\n        <p>Dear {{recipientName}},</p>\n        <p>This is a notification regarding\n           <strong>{{recordTitle}}</strong>.</p>\n        <p>Reference: {{recordReference}}</p>\n        <p>Regards,<br>Notification Team</p>\n     </body></html>','Dear {{recipientName}},\n\nThis is a notification regarding {{recordTitle}}.\nReference: {{recordReference}}\n\nRegards,\nNotification Team',1,'2026-10-31 16:37:45','2026-11-04 22:08:25'),(4,'WELCOME_EMAIL','Welcome Email','Welcome {{recipientName}}','<html><body><h1>Hello {{recipientName}}</h1></body></html>','Hello {{recipientName}}',1,'2026-11-04 22:41:07','2026-11-04 23:26:01'),(6,'TEST_TEMPLATE','Test Template','Test email for {{record reference}}','<html><body><h1>Hello {{recipientName}}</h1></body></html>','Hello {{recipientName}}',0,'2026-11-04 23:43:08','2026-11-05 11:28:39');
+INSERT INTO `email_templates` VALUES (1,'STANDARD_NOTIFICATION','Standard Notification','Notification: {{recordReference}}','<html><body>\n        <p>Dear {{recipientName}},</p>\n        <p>This is a notification regarding\n           <strong>{{recordTitle}}</strong>.</p>\n        <p>Reference: {{recordReference}}</p>\n        <p>Regards,<br>Notification Team</p>\n     </body></html>','Dear {{recipientName}},\n\nThis is a notification regarding {{recordTitle}}.\nReference: {{recordReference}}\n\nRegards,\nNotification Team',1,'2026-10-31 16:37:45','2026-11-04 22:08:25'),(4,'WELCOME_EMAIL','Welcome Email','Welcome {{recipientName}}','<html><body><h1>Hello {{recipientName}}</h1></body></html>','Hello {{recipientName}}',1,'2026-11-04 22:41:07','2026-11-04 23:26:01'),(6,'TEST_TEMPLATE','Test Template','Test email for {{record reference}}','<html><body><h1>Hello {{recipientName}}</h1></body></html>','Hello {{recipientName}}',0,'2026-11-04 23:43:08','2026-11-06 12:20:49');
 /*!40000 ALTER TABLE `email_templates` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-11-05 15:46:59
+-- Dump completed on 2026-11-06 18:06:32

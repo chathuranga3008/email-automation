@@ -1,0 +1,147 @@
+.edit-recipient-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.page-heading,
+.form-card {
+  background: #ffffff;
+  border: 1px solid #e7eaf0;
+  border-radius: 10px;
+}
+
+.page-heading {
+  padding: 24px;
+}
+
+.page-heading h2 {
+  margin: 0 0 8px;
+  color: #17243a;
+  font-size: 21px;
+}
+
+.page-heading p {
+  margin: 0;
+  color: #8290a3;
+  font-size: 13px;
+}
+
+.form-card {
+  padding: 28px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  color: #34445c;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.form-group label span {
+  color: #c0392b;
+}
+
+.form-group input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 12px;
+  border: 1px solid #dce2ea;
+  border-radius: 6px;
+  color: #253b60;
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: #526f9d;
+}
+
+.form-group input:disabled {
+  background: #f5f6f8;
+}
+
+.validation-message {
+  color: #c0392b;
+  font-size: 11px;
+}
+
+.error-message {
+  padding: 13px;
+  border-radius: 6px;
+  color: #c0392b;
+  background: #fff5f4;
+  font-size: 13px;
+}
+
+.loading-message {
+  padding: 24px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e7eaf0;
+  border-radius: 10px;
+  color: #8290a3;
+  font-size: 13px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid #edf0f4;
+  padding-top: 20px;
+}
+
+.cancel-button,
+.save-button,
+.back-button {
+  padding: 11px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-button {
+  color: #526176;
+  background: #edf0f4;
+}
+
+.save-button {
+  color: #ffffff;
+  background: #253b60;
+}
+
+.back-button {
+  margin-left: 12px;
+  color: #ffffff;
+  background: #253b60;
+}
+
+.cancel-button:disabled,
+.save-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .form-card {
+    padding: 18px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}

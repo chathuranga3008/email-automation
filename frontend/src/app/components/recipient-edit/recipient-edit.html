@@ -1,0 +1,71 @@
+<div class="edit-recipient-page">
+  <div class="page-heading">
+    <div>
+      <h2>Edit Recipient</h2>
+      <p>Update the recipient's details.</p>
+    </div>
+  </div>
+
+  <div class="loading-message" *ngIf="loading">Loading recipient details...</div>
+
+  <div class="form-card" *ngIf="!loading && recipientId > 0 && !errorMessage">
+    <form #recipientForm="ngForm" (ngSubmit)="updateRecipient()">
+      <div class="form-group">
+        <label for="recipientName"> Recipient Name <span>*</span> </label>
+
+        <input
+          id="recipientName"
+          name="recipientName"
+          type="text"
+          [(ngModel)]="recipientName"
+          (ngModelChange)="saveDraft()"
+          placeholder="Enter recipient name"
+          maxlength="200"
+          required
+          [disabled]="saving"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="emailAddress"> Email Address <span>*</span> </label>
+
+        <input
+          id="emailAddress"
+          name="emailAddress"
+          type="email"
+          [(ngModel)]="emailAddress"
+          (ngModelChange)="saveDraft()"
+          placeholder="e.g. recipient@example.com"
+          maxlength="254"
+          required
+          email
+          [disabled]="saving"
+          #emailInput="ngModel"
+        />
+
+        <small class="validation-message" *ngIf="emailInput.invalid && emailInput.touched">
+          Please enter a valid email address.
+        </small>
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="cancel-button" (click)="cancel()" [disabled]="saving">
+          Cancel
+        </button>
+
+        <button type="submit" class="save-button" [disabled]="saving || recipientForm.invalid">
+          {{ saving ? 'Saving...' : 'Save Changes' }}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="error-message" *ngIf="!loading && errorMessage">
+    {{ errorMessage }}
+    <button type="button" class="back-button" (click)="cancel()">Back to Recipients</button>
+  </div>
+</div>

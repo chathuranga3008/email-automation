@@ -8,6 +8,9 @@ import { EmailTemplateDetails } from './components/email-template-details/email-
 import { EmailTemplateEdit } from './components/email-template-edit/email-template-edit';
 import { EmailHistory } from './components/email-history/email-history';
 import { EmailJobDetailsPage } from './components/email-job-details/email-job-details';
+import { Recipients } from './components/recipients/recipients';
+import { RecipientCreate } from './components/recipient-create/recipient-create';
+import { RecipientEdit } from './components/recipient-edit/recipient-edit';
 
 export const routes: Routes = [
   {
@@ -79,8 +82,24 @@ export const routes: Routes = [
     },
   },
   {
+    path: 'recipients/create',
+    component: RecipientCreate,
+    data: {
+      title: 'Create Recipient',
+      description: 'Add a new email recipient.',
+    },
+  },
+  {
+    path: 'recipients/:id/edit',
+    component: RecipientEdit,
+    data: {
+      title: 'Edit Recipient',
+      description: 'Update an existing email recipient.',
+    },
+  },
+  {
     path: 'recipients',
-    component: SectionPage,
+    component: Recipients,
     data: {
       title: 'Recipients',
       description: 'View and manage email recipients.',
