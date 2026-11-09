@@ -1,0 +1,54 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-heading">
+      <h1>Email Automation</h1>
+      <p>Administrator Sign In</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          name="username"
+          [(ngModel)]="username"
+          placeholder="Enter your username"
+          autocomplete="username"
+          required
+          [disabled]="loading()"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          required
+          [disabled]="loading()"
+        />
+      </div>
+
+      @if (errorMessage()) {
+        <div class="error-message" role="alert">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <button type="submit" [disabled]="!loginForm.valid || !csrfReady() || loading()">
+        @if (loading()) {
+          Signing in...
+        } @else if (!csrfReady()) {
+          Initializing...
+        } @else {
+          Sign In
+        }
+      </button>
+    </form>
+  </div>
+</div>

@@ -80,6 +80,10 @@ public class AuthController {
                     response
             );
 
+            // Clear the pre-authentication CSRF token.
+            // The frontend must request a fresh token after login.
+            csrfTokenRepository.saveToken(null, request, response);
+
             return ResponseEntity.ok(
                     Map.of(
                             "username", authentication.getName(),

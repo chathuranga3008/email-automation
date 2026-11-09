@@ -13,8 +13,14 @@ import { RecipientEdit } from './features/recipients/components/recipient-edit/r
 import { Records } from './features/records/components/records/records';
 import { RecordCreate } from './features/records/components/record-create/record-create';
 import { RecordEdit } from './features/records/components/record-edit/record-edit';
+import { authGuard } from './core/guards/auth.guard';
+import { Login } from './features/auth/components/login/login';
 
 export const routes: Routes = [
+  {
+    path: 'login',
+    component: Login,
+  },
   {
     path: '',
     redirectTo: 'dashboard',
@@ -23,6 +29,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: Dashboard,
+    canActivate: [authGuard],
     data: {
       title: 'Dashboard',
       description: 'Overview of your email automation activities.',
@@ -31,6 +38,7 @@ export const routes: Routes = [
   {
     path: 'send-emails',
     component: SendEmails,
+    canActivate: [authGuard],
     data: {
       title: 'Send Emails',
       description: 'Select records and recipients to send emails.',
@@ -39,6 +47,7 @@ export const routes: Routes = [
   {
     path: 'email-templates',
     component: EmailTemplates,
+    canActivate: [authGuard],
     data: {
       title: 'Email Templates',
       description: 'Manage your email templates.',
@@ -47,6 +56,7 @@ export const routes: Routes = [
   {
     path: 'email-templates/create',
     component: EmailTemplateCreate,
+    canActivate: [authGuard],
     data: {
       title: 'Create Email Template',
       description: 'Create a new email template.',
@@ -54,6 +64,7 @@ export const routes: Routes = [
   }, {
     path: 'email-templates/:id/edit',
     component: EmailTemplateEdit,
+    canActivate: [authGuard],
     data: {
       title: 'Edit Email Template',
       description: 'Edit email template configuration and content.',
@@ -62,6 +73,7 @@ export const routes: Routes = [
   {
     path: 'email-templates/:id',
     component: EmailTemplateDetails,
+    canActivate: [authGuard],
     data: {
       title: 'Template Details',
       description: 'View email template content and configuration.',
@@ -70,6 +82,7 @@ export const routes: Routes = [
   {
     path: 'email-history/:id',
     component: EmailJobDetailsPage,
+    canActivate: [authGuard],
     data: {
       title: 'Email Job Details',
       description: 'Review email job information and recipient delivery results.',
@@ -78,6 +91,7 @@ export const routes: Routes = [
   {
     path: 'email-history',
     component: EmailHistory,
+    canActivate: [authGuard],
     data: {
       title: 'Email History',
       description: 'Review email jobs and delivery history.',
@@ -86,6 +100,7 @@ export const routes: Routes = [
   {
     path: 'recipients/create',
     component: RecipientCreate,
+    canActivate: [authGuard],
     data: {
       title: 'Create Recipient',
       description: 'Add a new email recipient.',
@@ -94,6 +109,7 @@ export const routes: Routes = [
   {
     path: 'recipients/:id/edit',
     component: RecipientEdit,
+    canActivate: [authGuard],
     data: {
       title: 'Edit Recipient',
       description: 'Update an existing email recipient.',
@@ -102,6 +118,7 @@ export const routes: Routes = [
   {
     path: 'recipients',
     component: Recipients,
+    canActivate: [authGuard],
     data: {
       title: 'Recipients',
       description: 'View and manage email recipients.',
@@ -110,6 +127,7 @@ export const routes: Routes = [
   {
     path: 'records/create',
     component: RecordCreate,
+    canActivate: [authGuard],
     data: {
       title: 'Create Record',
       description: 'Add a new record to the system.',
@@ -118,6 +136,7 @@ export const routes: Routes = [
   {
     path: 'records/:id/edit',
     component: RecordEdit,
+    canActivate: [authGuard],
     data: {
       title: 'Edit Record',
       description: 'Update an existing record.',
@@ -126,6 +145,7 @@ export const routes: Routes = [
   {
     path: 'records',
     component: Records,
+    canActivate: [authGuard],
     data: {
       title: 'Records',
       description: 'View and manage your records.',

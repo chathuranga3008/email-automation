@@ -214,3 +214,22 @@
     padding: 18px;
   }
 }
+
+.logout-button {
+  margin-left: 16px;
+  padding: 9px 16px;
+  border: 1px solid #d5dbe5;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #344054;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: #d92d20;
+    background: #fff3f2;
+    color: #d92d20;
+  }
+}
