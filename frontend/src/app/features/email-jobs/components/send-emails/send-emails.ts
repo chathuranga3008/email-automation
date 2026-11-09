@@ -10,7 +10,7 @@ import { RecordService } from '../../../records/services/record.service';
 import { RecipientService } from '../../../recipients/services/recipient.service';
 import { EmailTemplateService } from '../../../email-templates/services/email-template.service';
 import { EmailJobService } from '../../services/email-job.service';
-import { StatePreservationService } from '../../../../services/state-preservation.service';
+import { StatePreservationService } from '../../../../core/services/state-preservation.service';
 
 import { Record as EmailRecord } from '../../../records/models/record.model';
 import { Recipient } from '../../../recipients/models/recipient.model';

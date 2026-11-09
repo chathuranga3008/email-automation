@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { RecordService } from '../../services/record.service';
-import { StatePreservationService } from '../../../../services/state-preservation.service';
+import { StatePreservationService } from '../../../../core/services/state-preservation.service';
 import { CreateRecordRequest } from '../../models/record.model';
 
 interface CreateRecordDraft {
