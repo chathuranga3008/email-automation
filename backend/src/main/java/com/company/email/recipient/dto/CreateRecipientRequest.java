@@ -1,4 +1,4 @@
-package com.company.email.dto;
+package com.company.email.recipient.dto;
 
 public record CreateRecipientRequest(
         String recipientName,

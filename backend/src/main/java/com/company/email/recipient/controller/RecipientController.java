@@ -1,7 +1,7 @@
-package com.company.email.controller;
+package com.company.email.recipient.controller;
 
-import com.company.email.dto.*;
-import com.company.email.service.RecipientService;
+import com.company.email.recipient.dto.*;
+import com.company.email.recipient.service.RecipientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

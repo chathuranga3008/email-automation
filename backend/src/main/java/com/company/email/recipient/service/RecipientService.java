@@ -1,6 +1,6 @@
-package com.company.email.service;
+package com.company.email.recipient.service;
 
-import com.company.email.dto.*;
+import com.company.email.recipient.dto.*;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
