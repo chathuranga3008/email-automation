@@ -1,10 +1,10 @@
-package com.company.email.controller;
+package com.company.email.template.controller;
 
-import com.company.email.dto.CreateEmailTemplateRequest;
-import com.company.email.dto.EmailTemplateDTO;
-import com.company.email.dto.EmailTemplateStatusRequest;
-import com.company.email.dto.UpdateEmailTemplateRequest;
-import com.company.email.service.EmailTemplateService;
+import com.company.email.template.dto.CreateEmailTemplateRequest;
+import com.company.email.template.dto.EmailTemplateDTO;
+import com.company.email.template.dto.EmailTemplateStatusRequest;
+import com.company.email.template.dto.UpdateEmailTemplateRequest;
+import com.company.email.template.service.EmailTemplateService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

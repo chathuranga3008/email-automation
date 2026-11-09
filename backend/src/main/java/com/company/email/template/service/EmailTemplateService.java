@@ -1,8 +1,8 @@
-package com.company.email.service;
+package com.company.email.template.service;
 
-import com.company.email.dto.CreateEmailTemplateRequest;
-import com.company.email.dto.EmailTemplateDTO;
-import com.company.email.dto.UpdateEmailTemplateRequest;
+import com.company.email.template.dto.CreateEmailTemplateRequest;
+import com.company.email.template.dto.EmailTemplateDTO;
+import com.company.email.template.dto.UpdateEmailTemplateRequest;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,6 @@
-package com.company.email.dto;
+package com.company.email.template.dto;
 
-public record CreateEmailTemplateRequest(
-        String templateCode,
+public record UpdateEmailTemplateRequest(
         String templateName,
         String subjectTemplate,
         String bodyHtml,
