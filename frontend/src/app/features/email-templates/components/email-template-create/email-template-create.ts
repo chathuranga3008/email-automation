@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { EmailTemplateService } from '../../services/email-template.service';
-import { StatePreservationService } from '../../services/state-preservation.service';
+import { StatePreservationService } from '../../../../services/state-preservation.service';
 import { CreateEmailTemplateRequest } from '../../models/email-template.model';
 
 interface CreateTemplateDraft {

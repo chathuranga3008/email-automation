@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 import { Dashboard } from './features/dashboard/components/dashboard';
 import { SendEmails } from './components/send-emails/send-emails';
-import { EmailTemplates } from './components/email-templates/email-templates';
-import { EmailTemplateCreate } from './components/email-template-create/email-template-create';
-import { EmailTemplateDetails } from './components/email-template-details/email-template-details';
-import { EmailTemplateEdit } from './components/email-template-edit/email-template-edit';
+import { EmailTemplates } from './features/email-templates/components/email-templates/email-templates';
+import { EmailTemplateCreate } from './features/email-templates/components/email-template-create/email-template-create';
+import { EmailTemplateDetails } from './features/email-templates/components/email-template-details/email-template-details';
+import { EmailTemplateEdit } from './features/email-templates/components/email-template-edit/email-template-edit';
 import { EmailHistory } from './components/email-history/email-history';
 import { EmailJobDetailsPage } from './components/email-job-details/email-job-details';
 import { Recipients } from './components/recipients/recipients';
