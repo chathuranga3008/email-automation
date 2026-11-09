@@ -7,9 +7,9 @@ import { EmailTemplateDetails } from './features/email-templates/components/emai
 import { EmailTemplateEdit } from './features/email-templates/components/email-template-edit/email-template-edit';
 import { EmailHistory } from './components/email-history/email-history';
 import { EmailJobDetailsPage } from './components/email-job-details/email-job-details';
-import { Recipients } from './components/recipients/recipients';
-import { RecipientCreate } from './components/recipient-create/recipient-create';
-import { RecipientEdit } from './components/recipient-edit/recipient-edit';
+import { Recipients } from './features/recipients/components/recipients/recipients';
+import { RecipientCreate } from './features/recipients/components/recipient-create/recipient-create';
+import { RecipientEdit } from './features/recipients/components/recipient-edit/recipient-edit';
 import { Records } from './components/records/records';
 import { RecordCreate } from './components/record-create/record-create';
 import { RecordEdit } from './components/record-edit/record-edit';

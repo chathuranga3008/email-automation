@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { RecipientService } from '../../services/recipient.service';
-import { StatePreservationService } from '../../services/state-preservation.service';
+import { StatePreservationService } from '../../../../services/state-preservation.service';
 import { CreateRecipientRequest } from '../../models/recipient.model';
 
 interface CreateRecipientDraft {
