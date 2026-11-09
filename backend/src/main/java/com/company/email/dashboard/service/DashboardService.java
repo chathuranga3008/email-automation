@@ -1,7 +1,7 @@
-package com.company.email.service;
+package com.company.email.dashboard.service;
 
-import com.company.email.dto.DashboardSummaryDTO;
-import com.company.email.dto.RecentEmailJobDTO;
+import com.company.email.dashboard.dto.DashboardSummaryDTO;
+import com.company.email.dashboard.dto.RecentEmailJobDTO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 

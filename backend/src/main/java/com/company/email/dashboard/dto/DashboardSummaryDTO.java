@@ -1,4 +1,4 @@
-package com.company.email.dto;
+package com.company.email.dashboard.dto;
 
 public record DashboardSummaryDTO(
         Long totalJobs,

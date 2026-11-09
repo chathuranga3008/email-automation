@@ -1,8 +1,8 @@
-package com.company.email.controller;
+package com.company.email.dashboard.controller;
 
-import com.company.email.dto.DashboardSummaryDTO;
-import com.company.email.dto.RecentEmailJobDTO;
-import com.company.email.service.DashboardService;
+import com.company.email.dashboard.dto.DashboardSummaryDTO;
+import com.company.email.dashboard.dto.RecentEmailJobDTO;
+import com.company.email.dashboard.service.DashboardService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
