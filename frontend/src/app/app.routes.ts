@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
-import { SectionPage } from './section-page';
-import { Dashboard } from './components/dashboard/dashboard';
+import { Dashboard } from './features/dashboard/components/dashboard';
 import { SendEmails } from './components/send-emails/send-emails';
 import { EmailTemplates } from './components/email-templates/email-templates';
 import { EmailTemplateCreate } from './components/email-template-create/email-template-create';

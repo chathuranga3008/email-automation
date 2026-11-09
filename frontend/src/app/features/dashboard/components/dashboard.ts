@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { forkJoin, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 
-import { DashboardService } from '../../services/dashboard.service';
-import { DashboardSummary, RecentEmailJob } from '../../models/dashboard.model';
+import { DashboardService } from '../services/dashboard.service';
+import { DashboardSummary, RecentEmailJob } from '../models/dashboard.model';
 
 @Component({
   selector: 'app-dashboard',

@@ -1,16 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { EmailJobDetails } from './email-job-details';
+import { EmailJobDetailsPage } from './email-job-details';
+import { provideRouter } from '@angular/router';
 
 describe('EmailJobDetails', () => {
-  let component: EmailJobDetails;
-  let fixture: ComponentFixture<EmailJobDetails>;
+  let component: EmailJobDetailsPage;
+  let fixture: ComponentFixture<EmailJobDetailsPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EmailJobDetails],
+      imports: [EmailJobDetailsPage],
+      providers: [provideRouter([])],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(EmailJobDetails);
+    fixture = TestBed.createComponent(EmailJobDetailsPage);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
