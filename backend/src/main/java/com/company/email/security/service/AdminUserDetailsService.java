@@ -22,11 +22,7 @@ public class AdminUserDetailsService implements UserDetailsService {
 
         try {
             return jdbcTemplate.queryForObject(
-                    """
-                            SELECT username, password_hash, is_active
-                            FROM admin_users
-                            WHERE username = ?
-                            """,
+                    "CALL sp_get_admin_by_username(?)",
                     (rs, rowNum) -> User.withUsername(
                                     rs.getString("username"))
                             .password(rs.getString("password_hash"))
