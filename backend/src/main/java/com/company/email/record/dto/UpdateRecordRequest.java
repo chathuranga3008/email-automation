@@ -1,4 +1,4 @@
-package com.company.email.dto;
+package com.company.email.record.dto;
 
 public record UpdateRecordRequest(
         String recordReference,

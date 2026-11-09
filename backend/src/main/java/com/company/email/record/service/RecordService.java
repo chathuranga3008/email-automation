@@ -1,9 +1,9 @@
-package com.company.email.service;
+package com.company.email.record.service;
 
-import com.company.email.dto.CreateRecordRequest;
-import com.company.email.dto.RecordDTO;
-import com.company.email.dto.RecordManagementDTO;
-import com.company.email.dto.UpdateRecordRequest;
+import com.company.email.record.dto.CreateRecordRequest;
+import com.company.email.record.dto.RecordDTO;
+import com.company.email.record.dto.RecordManagementDTO;
+import com.company.email.record.dto.UpdateRecordRequest;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
