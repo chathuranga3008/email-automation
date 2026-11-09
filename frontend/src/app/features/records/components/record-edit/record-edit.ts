@@ -2,33 +2,36 @@ import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef } from '@angula
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { RecordService } from '../../services/record.service';
-import { StatePreservationService } from '../../services/state-preservation.service';
-import { CreateRecordRequest } from '../../models/record.model';
+import { StatePreservationService } from '../../../../services/state-preservation.service';
+import { UpdateRecordRequest } from '../../models/record.model';
 
-interface CreateRecordDraft {
+interface EditRecordDraft {
   recordReference: string;
   recordTitle: string;
   description: string;
 }
 
 @Component({
-  selector: 'app-record-create',
+  selector: 'app-record-edit',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './record-create.html',
-  styleUrl: './record-create.scss'
+  templateUrl: './record-edit.html',
+  styleUrl: './record-edit.scss'
 })
-export class RecordCreate implements OnInit, OnDestroy {
+export class RecordEdit implements OnInit, OnDestroy {
 
   private recordService = inject(RecordService);
   private stateService = inject(StatePreservationService);
+  private route = inject(ActivatedRoute);
   private router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
 
-  private readonly stateKey = 'record-create-draft-v1';
+  recordId = 0;
+
+  private recordLoaded = false;
   private preserveDraftOnDestroy = true;
 
   recordReference = '';
@@ -36,21 +39,73 @@ export class RecordCreate implements OnInit, OnDestroy {
   description = '';
 
   loading = false;
+  saving = false;
   errorMessage = '';
 
+  private get stateKey(): string {
+    return `record-edit-draft-v1-${this.recordId}`;
+  }
+
   ngOnInit(): void {
-    this.restoreDraft();
+
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (!Number.isInteger(id) || id <= 0) {
+      this.errorMessage = 'Invalid record ID.';
+      return;
+    }
+
+    this.recordId = id;
+    this.loadRecord();
   }
 
   ngOnDestroy(): void {
-    if (this.preserveDraftOnDestroy) {
+
+    if (this.preserveDraftOnDestroy && this.recordLoaded) {
       this.saveDraft();
     }
   }
 
+  private loadRecord(): void {
+
+    this.loading = true;
+    this.errorMessage = '';
+
+    this.recordService.getRecordById(this.recordId).subscribe({
+
+      next: record => {
+
+        this.recordReference = record.recordReference;
+        this.recordTitle = record.recordTitle;
+        this.description = record.description || '';
+
+        this.recordLoaded = true;
+
+        this.restoreDraft();
+
+        this.loading = false;
+        this.cdr.markForCheck();
+
+      },
+
+      error: error => {
+
+        this.loading = false;
+
+        this.errorMessage =
+          error?.error?.message ||
+          error?.error?.detail ||
+          'Unable to load record details.';
+
+        this.cdr.markForCheck();
+
+      }
+    });
+  }
+
   private restoreDraft(): void {
 
-    const draft = this.stateService.getState<CreateRecordDraft>(
+    const draft = this.stateService.getState<EditRecordDraft>(
       this.stateKey
     );
 
@@ -70,13 +125,15 @@ export class RecordCreate implements OnInit, OnDestroy {
     this.recordReference = draft.recordReference;
     this.recordTitle = draft.recordTitle;
     this.description = draft.description;
-
-    this.cdr.markForCheck();
   }
 
   saveDraft(): void {
 
-    const draft: CreateRecordDraft = {
+    if (!this.recordLoaded) {
+      return;
+    }
+
+    const draft: EditRecordDraft = {
       recordReference: this.recordReference,
       recordTitle: this.recordTitle,
       description: this.description
@@ -86,20 +143,22 @@ export class RecordCreate implements OnInit, OnDestroy {
   }
 
   private discardDraft(): void {
+
     this.preserveDraftOnDestroy = false;
     this.stateService.clearState(this.stateKey);
   }
 
   cancel(): void {
+
     this.discardDraft();
     this.router.navigate(['/records']);
   }
 
-  createRecord(): void {
+  updateRecord(): void {
 
     this.errorMessage = '';
 
-    const request: CreateRecordRequest = {
+    const request: UpdateRecordRequest = {
       recordReference: this.recordReference.trim(),
       recordTitle: this.recordTitle.trim(),
       description: this.description.trim() || null
@@ -110,13 +169,16 @@ export class RecordCreate implements OnInit, OnDestroy {
       return;
     }
 
-    this.loading = true;
+    this.saving = true;
 
-    this.recordService.createRecord(request).subscribe({
+    this.recordService.updateRecord(
+      this.recordId,
+      request
+    ).subscribe({
 
       next: () => {
 
-        this.loading = false;
+        this.saving = false;
 
         this.discardDraft();
 
@@ -128,12 +190,12 @@ export class RecordCreate implements OnInit, OnDestroy {
 
       error: error => {
 
-        this.loading = false;
+        this.saving = false;
 
         this.errorMessage =
           error?.error?.message ||
           error?.error?.detail ||
-          'Unable to create record. Please check the record reference and try again.';
+          'Unable to update record. Please check the record reference and try again.';
 
         this.cdr.markForCheck();
 

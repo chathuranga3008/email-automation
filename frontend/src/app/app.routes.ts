@@ -10,9 +10,9 @@ import { EmailJobDetailsPage } from './components/email-job-details/email-job-de
 import { Recipients } from './features/recipients/components/recipients/recipients';
 import { RecipientCreate } from './features/recipients/components/recipient-create/recipient-create';
 import { RecipientEdit } from './features/recipients/components/recipient-edit/recipient-edit';
-import { Records } from './components/records/records';
-import { RecordCreate } from './components/record-create/record-create';
-import { RecordEdit } from './components/record-edit/record-edit';
+import { Records } from './features/records/components/records/records/records';
+import { RecordCreate } from './features/records/components/record-create/record-create';
+import { RecordEdit } from './features/records/components/record-edit/record-edit';
 
 export const routes: Routes = [
   {
