@@ -1,7 +1,7 @@
-package com.company.email.controller;
+package com.company.email.mail.controller;
 
-import com.company.email.dto.*;
-import com.company.email.service.EmailJobService;
+import com.company.email.mail.dto.*;
+import com.company.email.mail.service.EmailJobService;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;

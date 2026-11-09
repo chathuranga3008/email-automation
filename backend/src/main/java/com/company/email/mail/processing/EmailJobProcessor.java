@@ -1,6 +1,6 @@
-package com.company.email.service;
+package com.company.email.mail.processing;
 
-import com.company.email.dto.EmailRecipientLogDTO;
+import com.company.email.mail.dto.EmailRecipientLogDTO;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

@@ -1,6 +1,6 @@
-package com.company.email.controller;
+package com.company.email.mail.controller;
 
-import com.company.email.service.EmailSenderService;
+import com.company.email.mail.processing.EmailSenderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

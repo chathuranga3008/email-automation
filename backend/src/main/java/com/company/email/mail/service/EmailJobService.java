@@ -1,6 +1,6 @@
-package com.company.email.service;
+package com.company.email.mail.service;
 
-import com.company.email.dto.*;
+import com.company.email.mail.dto.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;

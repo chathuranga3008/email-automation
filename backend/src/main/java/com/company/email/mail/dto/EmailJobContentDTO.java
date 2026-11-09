@@ -1,4 +1,4 @@
-package com.company.email.dto;
+package com.company.email.mail.dto;
 
 public record EmailJobContentDTO(
         Long id,

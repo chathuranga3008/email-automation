@@ -1,4 +1,4 @@
-package com.company.email.service;
+package com.company.email.mail.processing;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;

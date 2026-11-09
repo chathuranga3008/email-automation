@@ -1,7 +1,7 @@
-package com.company.email.service;
+package com.company.email.mail.processing;
 
-import com.company.email.dto.EmailJobContentDTO;
-import com.company.email.dto.EmailRecipientLogDTO;
+import com.company.email.mail.dto.EmailJobContentDTO;
+import com.company.email.mail.dto.EmailRecipientLogDTO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.company.email.service;
+package com.company.email.mail.processing;
 
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.mail.javamail.JavaMailSender;

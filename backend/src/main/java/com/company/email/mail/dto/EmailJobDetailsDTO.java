@@ -1,17 +1,20 @@
-package com.company.email.dto;
+package com.company.email.mail.dto;
 
 import java.time.LocalDateTime;
 
-public record EmailJobHistoryDTO(
+public record EmailJobDetailsDTO(
         Long id,
         String recordReference,
         String recordTitle,
         String templateName,
         String subject,
+        String bodyHtml,
+        String bodyText,
         String status,
         Integer totalRecipients,
         Integer sentCount,
         Integer failedCount,
+        String createdBy,
         LocalDateTime createdAt,
         LocalDateTime startedAt,
         LocalDateTime completedAt

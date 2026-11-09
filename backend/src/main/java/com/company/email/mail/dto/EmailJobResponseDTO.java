@@ -1,4 +1,4 @@
-package com.company.email.dto;
+package com.company.email.mail.dto;
 
 import java.time.LocalDateTime;
 
